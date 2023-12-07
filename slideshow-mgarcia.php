@@ -25,9 +25,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 function slideshow_mgarcia_slideshow_mgarcia_block_init() {
-	register_block_type( __DIR__ . '/build' );
+	register_block_type(  __DIR__ . '/build', array(
+        //'render_callback' => 'slideshow_mgarcia_render_post_list'
+    ) );
+
 }
 add_action( 'init', 'slideshow_mgarcia_slideshow_mgarcia_block_init' );
+
+function slideshow_mgarcia_render_post_list () {
+	
+
+	
+}
 
 
 //Add new block category https://gutenberghub.com/how-to-create-custom-block-category/

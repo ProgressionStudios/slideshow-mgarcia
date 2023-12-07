@@ -7,7 +7,16 @@
   "category": "michaels-blocks",
   "icon": "slides",
   "description": "Slideshow Block for WordPress Posts",
-  "example": {},
+  "attributes": {
+    "columns": {
+      "type": "number",
+      "default": 3
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": false
+    }
+  },
   "supports": {
     "html": false
   },

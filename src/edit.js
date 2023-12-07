@@ -11,7 +11,10 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { 
+useBlockProps, 
+InspectorControls,
+} from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -21,21 +24,82 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+
 /**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
+ * WordPress dependencies
  */
-export default function Edit() {
-	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Slideshow Mgarcia – hello from the editor!',
-				'slideshow-mgarcia'
-			) }
-		</p>
+import {
+	SelectControl,
+	PanelBody,
+	Spinner,
+	Placeholder,
+	RangeControl,
+	ToggleControl,
+} from '@wordpress/components';
+
+export default function Edit( { attributes, setAttributes }) {
+
+	const {
+		columns,
+		autoplay,
+	} = attributes;
+
+	const onChangeItemsPerPage = columns => {
+		setAttributes( { columns : columns } );
+	};
+
+	const onChangeAutoplay = autoplay => {
+		setAttributes( { autoplay : autoplay } );
+		updateCarousel();
+	};
+
+	const inspectorControls = (
+		<InspectorControls key="inspector">
+				<PanelBody title={ __( 'Sorting and Filtering', 'slideshow-mgarcia' ) }>
+						<SelectControl
+						type="string"
+						label={ __( 'Select Example' ) }
+						value="test"
+						options={ [
+							{ label: 'Big', value: '100%' },
+							{ label: 'Medium', value: '50%' },
+							{ label: 'Small', value: '25%' },
+						] }
+						/>
+						
+						<ToggleControl
+						label={ __( 'Enable Autoplay' ) }
+						checked={ !! autoplay }
+						onChange={ onChangeAutoplay }
+					/>
+
+						 <RangeControl
+						label={ __( 'Carousel Columns' ) }
+						value={ columns }
+						onChange={ onChangeItemsPerPage }
+						min={ 1 }
+						max={ 6 }
+						/>
+				</PanelBody>
+        </InspectorControls>
 	);
+	
+
+
+    return (
+
+		<div { ...useBlockProps() }>
+			{ inspectorControls }
+
+			{ __( 'Editor – hello from the editor!', 'slideshow-mgarcia' ) }
+
+
+		</div>
+
+	);
+ 
+
 }
+
+
+
