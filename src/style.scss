@@ -10,3 +10,16 @@
 	color: #fff;
 	padding: 2px;
 }
+
+/* Show/Hide Elements */
+.slideshow-mgarcia-meta-excerpt,
+.slideshow-mgarcia-meta-list,
+.wp-block-post-featured-image {
+	display:none;
+}
+
+.slideshow-mgarcia-list.has-excerpt .slideshow-mgarcia-meta-excerpt,
+.slideshow-mgarcia-list.has-meta .slideshow-mgarcia-meta-list,
+.slideshow-mgarcia-list.has-featured .wp-block-post-featured-image {
+	display:block;
+}

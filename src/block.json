@@ -8,13 +8,21 @@
 	"icon": "slides",
 	"description": "Slideshow Block for WordPress Posts",
 	"attributes": {
+		"featuredImage": {
+			"type": "boolean",
+			"default": true
+		},
+		"postMeta": {
+			"type": "boolean",
+			"default": true
+		},
+		"postExcerpt": {
+			"type": "boolean",
+			"default": true
+		},
 		"columns": {
 			"type": "number",
 			"default": 3
-		},
-		"autoplay": {
-			"type": "boolean",
-			"default": false
 		}
 	},
 	"supports": {

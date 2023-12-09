@@ -1,5 +1,4 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/edit.js":
@@ -8,6 +7,7 @@
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Edit)
@@ -19,87 +19,150 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
-
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_6__);
 
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
 
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 
 
-/**
- * WordPress dependencies
- */
 
 function Edit({
   attributes,
   setAttributes
 }) {
   const {
-    columns,
-    autoplay
+    featuredImage,
+    postExcerpt,
+    postMeta,
+    columns
   } = attributes;
   const onChangeItemsPerPage = columns => {
     setAttributes({
       columns: columns
     });
   };
-  const onChangeAutoplay = autoplay => {
-    setAttributes({
-      autoplay: autoplay
-    });
-    updateCarousel();
-  };
   const inspectorControls = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
     key: "inspector"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Sorting and Filtering', 'slideshow-mgarcia')
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Slideshow Options', 'slideshow-mgarcia')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.SelectControl, {
     type: "string",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select Example'),
-    value: "test",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('News Feed', 'slideshow-mgarcia'),
+    value: "https://wptavern.com/wp-json/wp/v2/posts",
     options: [{
-      label: 'Big',
-      value: '100%'
+      label: 'Local Feed',
+      value: 'http://localhost:8888/gutenberg/wp-json/wp/v2/posts/?_embed'
     }, {
-      label: 'Medium',
-      value: '50%'
+      label: 'WP Tavern',
+      value: 'https://wptavern.com/wp-json/wp/v2/posts'
     }, {
-      label: 'Small',
-      value: '25%'
+      label: 'CSS Tricks',
+      value: 'https://css-tricks.com/wp-json/wp/v2/posts/?_embed'
     }]
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Autoplay'),
-    checked: !!autoplay,
-    onChange: onChangeAutoplay
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.RangeControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Carousel Columns'),
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display featured image', 'slideshow-mgarcia'),
+    checked: featuredImage,
+    onChange: value => setAttributes({
+      featuredImage: value
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display post meta', 'slideshow-mgarcia'),
+    checked: postMeta,
+    onChange: value => setAttributes({
+      postMeta: value
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display post excerpt', 'slideshow-mgarcia'),
+    checked: postExcerpt,
+    onChange: value => setAttributes({
+      postExcerpt: value
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Carousel Columns', 'slideshow-mgarcia'),
     value: columns,
     onChange: onChangeItemsPerPage,
     min: 1,
-    max: 6
+    max: 10
   })));
+  const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)([]);
+  const [isLoading, setLoading] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(true);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    async function loadPosts() {
+      const response = await fetch('http://localhost:8888/gutenberg/wp-json/wp/v2/posts/?_embed');
+      if (!response.ok) {
+        // oups! something went wrong
+        return;
+      }
+      const posts = await response.json();
+      setPosts(posts);
+      setLoading(false);
+    }
+    loadPosts();
+  }, []);
+  console.log(posts);
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
+    className: classnames__WEBPACK_IMPORTED_MODULE_6___default()({
+      'has-image': featuredImage
+    })
+  });
+  const postclasses = classnames__WEBPACK_IMPORTED_MODULE_6___default()('slideshow-mgarcia-list', {
+    'has-featured': featuredImage,
+    'has-meta': postMeta,
+    'has-excerpt': postExcerpt
+  });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-  }, inspectorControls, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Editor – hello from the editor!', 'slideshow-mgarcia'));
+  }, inspectorControls, isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.Spinner, null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    className: postclasses
+  }, posts.map(post => {
+    const titleTrimmed = post.title.rendered.trim();
+    const cleanExcerpt = post.excerpt.rendered.replace(/\[([^\[])*(\])/g, '...');
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+      class: "slideshow-mgarcia-list-item",
+      id: post.id
+    }, post._embedded['wp:featuredmedia'] ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "wp-block-post-featured-image"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: post.link,
+      target: "_blank"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: post._embedded['wp:featuredmedia'][0].source_url
+    }))) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+      class: "wp-block-post-title has-large-font-size"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: post.link,
+      target: "_blank",
+      dangerouslySetInnerHTML: {
+        __html: titleTrimmed
+      }
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "slideshow-mgarcia-meta-list"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      class: "slideshow-mgarcia-date"
+    }, moment(post.date).format('MMMM Do, YYYY')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      class: "slideshow-mgarcia-date-dash"
+    }, " \u2013 "), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "slideshow-mgarcia-date"
+    }, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('By', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: post._embedded.author[0].link,
+      target: "_blank"
+    }, post._embedded.author[0].name)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "slideshow-mgarcia-date"
+    }, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('in', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: post._embedded['wp:term'][0][0].link
+    }, post._embedded['wp:term'][0][0].name))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "slideshow-mgarcia-meta-excerpt",
+      dangerouslySetInnerHTML: {
+        __html: cleanExcerpt
+      }
+    }));
+  })));
 }
 
 /***/ }),
@@ -110,6 +173,7 @@ function Edit({
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
@@ -164,6 +228,7 @@ __webpack_require__.r(__webpack_exports__);
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ save)
@@ -198,12 +263,82 @@ function save() {
 
 /***/ }),
 
+/***/ "./node_modules/classnames/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/classnames/index.js ***!
+  \******************************************/
+/***/ ((module, exports) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+	var nativeCodeString = '[native code]';
+
+	function classNames() {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				if (arg.length) {
+					var inner = classNames.apply(null, arg);
+					if (inner) {
+						classes.push(inner);
+					}
+				}
+			} else if (argType === 'object') {
+				if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+					classes.push(arg.toString());
+					continue;
+				}
+
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if ( true && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
+
+/***/ }),
+
 /***/ "./src/editor.scss":
 /*!*************************!*\
   !*** ./src/editor.scss ***!
   \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -216,6 +351,7 @@ __webpack_require__.r(__webpack_exports__);
   \************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -228,6 +364,7 @@ __webpack_require__.r(__webpack_exports__);
   \************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["React"];
 
 /***/ }),
@@ -238,6 +375,7 @@ module.exports = window["React"];
   \*************************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["blockEditor"];
 
 /***/ }),
@@ -248,6 +386,7 @@ module.exports = window["wp"]["blockEditor"];
   \********************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["blocks"];
 
 /***/ }),
@@ -258,7 +397,19 @@ module.exports = window["wp"]["blocks"];
   \************************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = window["wp"]["element"];
 
 /***/ }),
 
@@ -268,6 +419,7 @@ module.exports = window["wp"]["components"];
   \******************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["i18n"];
 
 /***/ }),
@@ -278,7 +430,8 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow Block for WordPress Posts","attributes":{"columns":{"type":"number","default":3},"autoplay":{"type":"boolean","default":false}},"supports":{"html":false},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+"use strict";
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow Block for WordPress Posts","attributes":{"featuredImage":{"type":"boolean","default":true},"postMeta":{"type":"boolean","default":true},"postExcerpt":{"type":"boolean","default":true},"columns":{"type":"number","default":3}},"supports":{"html":false},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 
