@@ -16,10 +16,11 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {Element} Element to render.
  */
 export default function save() {
+
 	return (
 
 		<p { ...useBlockProps.save() }>
-			{ 'Slideshow Mgarcia – hello from the saved content!' }
+			{ 'Slideshow tada Mgarcia – hello from the saved content!' }
 		</p>
 	
 	);

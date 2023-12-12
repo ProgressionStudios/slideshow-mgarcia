@@ -26,17 +26,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function slideshow_mgarcia_slideshow_mgarcia_block_init() {
 	register_block_type(  __DIR__ . '/build', array(
-        //'render_callback' => 'slideshow_mgarcia_render_post_list'
+        'render_callback' => 'slideshow_mgarcia_render_post_list'
     ) );
 
 }
 add_action( 'init', 'slideshow_mgarcia_slideshow_mgarcia_block_init' );
-
-function slideshow_mgarcia_render_post_list () {
-	
-
-	
-}
 
 
 //Add new block category https://gutenberghub.com/how-to-create-custom-block-category/
@@ -49,4 +43,96 @@ add_filter( 'block_categories_all' , function( $categories ) {
 	);
 
 	return $categories;
+	
 } );
+
+
+//Fetch posts via wp_remote_get and cache
+define( 'HOURS', 60 * 60 * 12 );
+function get_remote_api_data( $attributes ) {
+	global $apiData;
+	   if( empty($apiData) ) $apiInfo = get_transient('api_data');
+	   if( !empty($apiData) ) return $apiData;
+
+
+	$selectedFeed = $attributes['jsonFeed']; 
+
+	$response = wp_remote_get( $selectedFeed ,  array(
+		 'timeout'     => 20,
+	));
+
+	$data = wp_remote_retrieve_body($response);
+
+	if( empty($data) ) return false;
+
+	$apiData= json_decode($data);
+   
+	set_transient( 'api_data', $apiData, HOURS );
+   
+	return $apiInfo;
+   
+}
+
+
+// Render Front-end Block
+function slideshow_mgarcia_render_post_list ($attributes) {
+
+	
+	$feed = get_remote_api_data( $attributes );
+
+	ob_start(); ?>
+
+	<div <?php echo get_block_wrapper_attributes(); ?>>
+
+		<div class="slideshow-mgarcia-feed-title"><h5><?php echo esc_html__( 'Feed Address:', 'slideshow-mgarcia' ) ?> <span><?php $selectedFeed = $attributes['jsonFeed'];  echo $selectedFeed; ?></span></h5></div>
+
+		<ul class="slideshow-mgarcia-list
+			<?php
+				if($attributes['featuredImage'] == '1' ){ echo ' has-featured'; }
+				if($attributes['postMeta'] == '1' ){ echo ' has-meta'; }
+				if($attributes['postExcerpt'] == '1' ){ echo ' has-excerpt'; }
+			?>">
+
+
+		<?php foreach($feed as $post) {
+			$postID= $post->id; 
+			$title= $post->title->rendered;
+			$postLink= $post->link;
+			$postDate= $post->date;
+			$new_date = date("F jS Y", strtotime($postDate));
+			$authorName= $post->_embedded->author[0]->name;
+			$authorLink= $post->_embedded->author[0]->link;
+			$postCategory= $post->_embedded->{'wp:term'}[0][0]->name;
+			$postCategoryLink= $post->_embedded->{'wp:term'}[0][0]->link;
+			$excerptPost= $post->excerpt->rendered;
+		
+			if( $post->featured_media != '0' ):
+				$featuredImageSource= $post->_embedded->{'wp:featuredmedia'}[0]->source_url;
+				//$featuredImageSource= $post->_embedded->{'wp:featuredmedia'}[0]->media_details->sizes->{'large'}->source_url; Used source image size instead as large image was not used globally
+				$featuredImageAlt= $post->_embedded->{'wp:featuredmedia'}[0]->title->rendered;
+			endif;
+		?>
+
+			<li class="slideshow-mgarcia-list-item" id="<?php echo esc_attr($postID); ?>">
+				<h2 class="wp-block-post-title has-large-font-size"><a href="<?php echo esc_url($postLink) ?>"><?php echo esc_html($title); ?></a></h2>
+
+				<?php if( $post->featured_media != '0' ): ?>
+					<div class="wp-block-post-featured-image"><a href="<?php echo esc_url($postLink) ?>"><img src="<?php echo esc_html($featuredImageSource) ?>" loading="lazy" alt="<?php echo esc_html($featuredImageAlt) ?>"></a></div>
+				<?php endif; ?>
+
+				<div class="slideshow-mgarcia-meta-list">
+					<span class="slideshow-mgarcia-date"><?php echo esc_html($new_date); ?></span>
+					<span class="slideshow-mgarcia-date-dash"> &ndash; </span>
+					<span class="slideshow-mgarcia-author"> <?php echo esc_html__( 'By', 'slideshow-mgarcia' ); ?> <a href="<?php echo esc_url($authorLink); ?>" target="_blank"><?php echo esc_html($authorName); ?></a></span>
+					<span class="slideshow-mgarcia-cat"> <?php echo esc_html__( 'in', 'slideshow-mgarcia' ); ?> <a href="<?php echo esc_url($postCategoryLink); ?>" target="_blank"><?php echo esc_html($postCategory); ?></a></span>
+				</div>
+				<div class="slideshow-mgarcia-meta-excerpt"><?php echo wp_kses($excerptPost, true); ?></div>
+			</li>
+
+		<?php } ?>
+
+		</ul>
+	</div>
+
+	<?php return ob_get_clean(); 
+}

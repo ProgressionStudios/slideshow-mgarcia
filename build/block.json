@@ -8,6 +8,10 @@
   "icon": "slides",
   "description": "Slideshow Block for WordPress Posts",
   "attributes": {
+    "jsonFeed": {
+      "type": "string",
+      "default": "https://wptavern.com/wp-json/wp/v2/posts/?_embed"
+    },
     "featuredImage": {
       "type": "boolean",
       "default": true

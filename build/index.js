@@ -25,6 +25,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__);
+
 
 
 
@@ -40,7 +43,8 @@ function Edit({
     featuredImage,
     postExcerpt,
     postMeta,
-    columns
+    columns,
+    jsonFeed
   } = attributes;
   const onChangeItemsPerPage = columns => {
     setAttributes({
@@ -50,21 +54,27 @@ function Edit({
   const inspectorControls = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
     key: "inspector"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Slideshow Options', 'slideshow-mgarcia')
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Slideshow Settings', 'slideshow-mgarcia'),
+    initialOpen: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.SelectControl, {
-    type: "string",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('News Feed', 'slideshow-mgarcia'),
-    value: "https://wptavern.com/wp-json/wp/v2/posts",
+    value: jsonFeed,
     options: [{
-      label: 'Local Feed',
+      label: 'WPTavern.com Feed',
+      value: 'https://wptavern.com/wp-json/wp/v2/posts/?_embed'
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Local Feed', 'slideshow-mgarcia'),
       value: 'http://localhost:8888/gutenberg/wp-json/wp/v2/posts/?_embed'
     }, {
-      label: 'WP Tavern',
-      value: 'https://wptavern.com/wp-json/wp/v2/posts'
-    }, {
-      label: 'CSS Tricks',
+      label: 'CSS-Tricks.com Feed',
       value: 'https://css-tricks.com/wp-json/wp/v2/posts/?_embed'
-    }]
+    }, {
+      label: 'rtcamp.com Feed',
+      value: 'https://rtcamp.com/wp-json/wp/v2/posts/?_embed'
+    }],
+    onChange: value => setAttributes({
+      jsonFeed: value
+    })
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.ToggleControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display featured image', 'slideshow-mgarcia'),
     checked: featuredImage,
@@ -83,7 +93,10 @@ function Edit({
     onChange: value => setAttributes({
       postExcerpt: value
     })
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.RangeControl, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Carousel Options', 'slideshow-mgarcia'),
+    initialOpen: true
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.RangeControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Carousel Columns', 'slideshow-mgarcia'),
     value: columns,
     onChange: onChangeItemsPerPage,
@@ -94,7 +107,9 @@ function Edit({
   const [isLoading, setLoading] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(true);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
     async function loadPosts() {
-      const response = await fetch('http://localhost:8888/gutenberg/wp-json/wp/v2/posts/?_embed');
+      setLoading(true); //Causes loading spinner each time jsonfeed is changed
+
+      const response = await fetch(jsonFeed);
       if (!response.ok) {
         // oups! something went wrong
         return;
@@ -104,13 +119,8 @@ function Edit({
       setLoading(false);
     }
     loadPosts();
-  }, []);
+  }, [attributes.jsonFeed]);
   console.log(posts);
-  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
-    className: classnames__WEBPACK_IMPORTED_MODULE_6___default()({
-      'has-image': featuredImage
-    })
-  });
   const postclasses = classnames__WEBPACK_IMPORTED_MODULE_6___default()('slideshow-mgarcia-list', {
     'has-featured': featuredImage,
     'has-meta': postMeta,
@@ -118,7 +128,9 @@ function Edit({
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-  }, inspectorControls, isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.Spinner, null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+  }, inspectorControls, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    class: "slideshow-mgarcia-feed-title"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h5", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Feed address:', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, jsonFeed))), isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.Spinner, null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: postclasses
   }, posts.map(post => {
     const titleTrimmed = post.title.rendered.trim();
@@ -133,7 +145,9 @@ function Edit({
       target: "_blank"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
       src: post._embedded['wp:featuredmedia'][0].source_url
-    }))) : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+    })))
+    //<a href={post.link} target="_blank"><img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}/> Used source image size instead as large image was not used globally
+    : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
       class: "wp-block-post-title has-large-font-size"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
       href: post.link,
@@ -148,16 +162,17 @@ function Edit({
     }, moment(post.date).format('MMMM Do, YYYY')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       class: "slideshow-mgarcia-date-dash"
     }, " \u2013 "), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "slideshow-mgarcia-date"
+      class: "slideshow-mgarcia-author"
     }, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('By', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
       href: post._embedded.author[0].link,
       target: "_blank"
     }, post._embedded.author[0].name)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "slideshow-mgarcia-date"
+      class: "slideshow-mgarcia-cat"
     }, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('in', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-      href: post._embedded['wp:term'][0][0].link
+      href: post._embedded['wp:term'][0][0].link,
+      target: "_blank"
     }, post._embedded['wp:term'][0][0].name))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "slideshow-mgarcia-meta-excerpt",
+      class: "slideshow-mgarcia-meta-excerpt",
       dangerouslySetInnerHTML: {
         __html: cleanExcerpt
       }
@@ -258,7 +273,7 @@ __webpack_require__.r(__webpack_exports__);
 function save() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
-  }, 'Slideshow Mgarcia – hello from the saved content!');
+  }, 'Slideshow tada Mgarcia – hello from the saved content!');
 }
 
 /***/ }),
@@ -402,6 +417,17 @@ module.exports = window["wp"]["components"];
 
 /***/ }),
 
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
 /***/ "@wordpress/element":
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
@@ -431,7 +457,7 @@ module.exports = window["wp"]["i18n"];
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow Block for WordPress Posts","attributes":{"featuredImage":{"type":"boolean","default":true},"postMeta":{"type":"boolean","default":true},"postExcerpt":{"type":"boolean","default":true},"columns":{"type":"number","default":3}},"supports":{"html":false},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow Block for WordPress Posts","attributes":{"jsonFeed":{"type":"string","default":"https://wptavern.com/wp-json/wp/v2/posts/?_embed"},"featuredImage":{"type":"boolean","default":true},"postMeta":{"type":"boolean","default":true},"postExcerpt":{"type":"boolean","default":true},"columns":{"type":"number","default":3}},"supports":{"html":false},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 
