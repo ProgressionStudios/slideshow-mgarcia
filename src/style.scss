@@ -53,16 +53,29 @@
 
 
 /* Show/Hide Elements */
+.slideshow-mgarcia-container ol.slideshow-mgarcia-bullets,
+.slideshow-mgarcia-container .slideshow-mgarcia-prev, 
+.slideshow-mgarcia-container .slideshow-mgarcia-next,
+.slideshow-mgarcia-feed-title,
 .slideshow-mgarcia-meta-excerpt,
 .slideshow-mgarcia-meta-list,
 .wp-block-post-featured-image {
 	display:none;
+    visibility: hidden;
 }
 
-.slideshow-mgarcia-list.has-excerpt .slideshow-mgarcia-meta-excerpt,
-.slideshow-mgarcia-list.has-meta .slideshow-mgarcia-meta-list,
-.slideshow-mgarcia-list.has-featured .wp-block-post-featured-image {
+.slideshow-mgarcia-container.has-bullet-nav ol.slideshow-mgarcia-bullets {
+    display: flex;
+    visibility: visible;
+}
+.slideshow-mgarcia-container.has-arrow-nav .slideshow-mgarcia-prev, 
+.slideshow-mgarcia-container.has-arrow-nav .slideshow-mgarcia-next,
+.slideshow-mgarcia-container.has-feed-front-end .slideshow-mgarcia-feed-title, 
+.slideshow-mgarcia-container.has-excerpt .slideshow-mgarcia-meta-excerpt,
+.slideshow-mgarcia-container.has-meta .slideshow-mgarcia-meta-list,
+.slideshow-mgarcia-container.has-featured .wp-block-post-featured-image {
 	display:block;
+    visibility: visible;
 }
 
 /* Carousel Default Styles */
@@ -96,11 +109,14 @@
 /* Bullet Navigation Styles */
 .slideshow-mgarcia-container ol {
     position: absolute;
-    bottom: 15px;
+    margin:0;
+    bottom: 20px;
+    padding:0;
     display: flex;
     justify-content: center;
     left: 50%;
-    transform: translateX(-50%); z-index: 9;
+    transform: translateX(-50%);
+     z-index: 9;
 }
 
 .slideshow-mgarcia-container ol li {
@@ -125,8 +141,8 @@
 }
 
 /* Next & Previous Navigation */
-.slideshow-mgarcia-container .slideshow-mgarcia-prev, 
-.slideshow-mgarcia-container .slideshow-mgarcia-next {
+.slideshow-mgarcia-prev, 
+.slideshow-mgarcia-next {
     user-select:none;
     cursor: pointer;
     position: absolute;
@@ -143,12 +159,12 @@
 	color: rgba(0, 0, 0, 0.6);
 }
 
-.slideshow-mgarcia-container .slideshow-mgarcia-prev:hover, 
-.slideshow-mgarcia-container .slideshow-mgarcia-next:hover {
+.slideshow-mgarcia-prev:hover, 
+.slideshow-mgarcia-next:hover {
 	color: rgba(0, 0, 0, 0.9);
 }
 
-.slideshow-mgarcia-container .slideshow-mgarcia-next {
+.slideshow-mgarcia-next {
     left: auto;
     right: 0px;
 }

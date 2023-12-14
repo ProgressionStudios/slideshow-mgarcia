@@ -27,6 +27,26 @@
     "feedCount": {
       "type": "number",
       "default": 5
+    },
+    "bulletNav": {
+      "type": "boolean",
+      "default": true
+    },
+    "arrowNav": {
+      "type": "boolean",
+      "default": true
+    },
+    "feedFrontEnd": {
+      "type": "boolean",
+      "default": false
+    },
+    "autoplaySlider": {
+      "type": "boolean",
+      "default": false
+    },
+    "autoplayDuration": {
+      "type": "number",
+      "default": 3500
     }
   },
   "supports": {

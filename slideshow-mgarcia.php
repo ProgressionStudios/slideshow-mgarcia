@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function slideshow_mgarcia_slideshow_mgarcia_block_init() {
 	register_block_type(  __DIR__ . '/build', array(
-        'render_callback' => 'slideshow_mgarcia_render_post_list'
+        'render_callback' => 'slideshow_mgarcia_render_post_list',
     ) );
 
 }
@@ -83,18 +83,20 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 	ob_start(); ?>
 
 	<div <?php echo get_block_wrapper_attributes(); ?>>
-		<div class="slideshow-mgarcia-container">
-			
-		<div class="slideshow-mgarcia-feed-title"><h5><?php echo esc_html__( 'Feed Address:', 'slideshow-mgarcia' ) ?> <span><?php $selectedFeed = $attributes['jsonFeed'];  echo $selectedFeed; ?></span></h5></div>
-
-		<ul class="slideshow-mgarcia-list
-			<?php
+		<div class="slideshow-mgarcia-container
+		<?php
 				if($attributes['featuredImage'] == '1' ){ echo ' has-featured'; }
 				if($attributes['postMeta'] == '1' ){ echo ' has-meta'; }
 				if($attributes['postExcerpt'] == '1' ){ echo ' has-excerpt'; }
-			?>">
+				if($attributes['bulletNav'] == '1' ){ echo ' has-bullet-nav'; }
+				if($attributes['arrowNav'] == '1' ){ echo ' has-arrow-nav'; }
+				if($attributes['feedFrontEnd'] == '1' ){ echo ' has-feed-front-end'; }
+		?>" <?php if( $attributes['autoplaySlider'] == '1' ): ?>duration="<?php echo esc_attr($attributes['autoplayDuration']) ?>"<?php endif; ?>>
 
+		<div class="slideshow-mgarcia-feed-title"><h5><?php echo esc_html__( 'Feed Address:', 'slideshow-mgarcia' ) ?> <span><?php $selectedFeed = $attributes['jsonFeed'];  echo $selectedFeed; ?></span></h5></div>
 
+		<ul class="slideshow-mgarcia-list">
+	
 		<?php 
 			$i = 0;
 			foreach($feed as $post) {

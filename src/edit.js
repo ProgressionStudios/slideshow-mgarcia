@@ -13,19 +13,28 @@ export default function Edit( { attributes, setAttributes }) {
 		postExcerpt,
 		postMeta,
 		feedCount,
-		jsonFeed
+		jsonFeed,
+		bulletNav,
+		arrowNav,
+		feedFrontEnd,
+		autoplaySlider,
+		autoplayDuration
 	} = attributes;
 
 
 	const onChangeItemsPerPage = feedCount => {
 		setAttributes( { feedCount : feedCount } );
 	};
+	
+	const onChangeItemsDuration = autoplayDuration => {
+		setAttributes( { autoplayDuration : autoplayDuration } );
+	};
 
 	const inspectorControls = (
 		<InspectorControls key="inspector">
 				<PanelBody title={ __( 'Layout', 'slideshow-mgarcia' ) } initialOpen={ true }>
 						<SelectControl
-							label= { __( 'News Feed', 'slideshow-mgarcia' ) }
+							label= { __( 'Posts Feed', 'slideshow-mgarcia' ) }
 							value={ jsonFeed }
 							options={ [
 								{ label: 'WPTavern.com Feed', value: 'https://wptavern.com/wp-json/wp/v2/posts/?_embed' },
@@ -56,8 +65,31 @@ export default function Edit( { attributes, setAttributes }) {
 								setAttributes( { postExcerpt: value } )
 							}
 						/>
+						<ToggleControl
+							label={ __( 'Display feed address', 'slideshow-mgarcia' ) }
+							checked={ feedFrontEnd }
+							onChange={ ( value ) =>
+								setAttributes( { feedFrontEnd: value } )
+							}
+						/>
 				</PanelBody>
 				<PanelBody title={ __( 'Slideshow Options', 'slideshow-mgarcia' ) } initialOpen={ true }>
+						<ToggleControl
+							label={ __( 'Autoplay', 'slideshow-mgarcia' ) }
+							checked={ autoplaySlider }
+							onChange={ ( value ) =>
+								setAttributes( { autoplaySlider: value } )
+							}
+						/>
+						{ autoplaySlider == 1 && (
+						<RangeControl
+							label= { __( 'Autoplay Duration (milliseconds)', 'slideshow-mgarcia' ) }
+							value={ autoplayDuration }
+							onChange={ onChangeItemsDuration }
+							min={ 1000 }
+							max={ 10000 }
+						/>
+						) }
 						<RangeControl
 							label= { __( 'Post Count', 'slideshow-mgarcia' ) }
 							value={ feedCount }
@@ -65,15 +97,28 @@ export default function Edit( { attributes, setAttributes }) {
 							min={ 1 }
 							max={ 10 }
 						/>
+						<ToggleControl
+							label={ __( 'Display bullet navigation', 'slideshow-mgarcia' ) }
+							checked={ bulletNav }
+							onChange={ ( value ) =>
+								setAttributes( { bulletNav: value } )
+							}
+						/>
+						<ToggleControl
+							label={ __( 'Display arrow navigation', 'slideshow-mgarcia' ) }
+							checked={ arrowNav }
+							onChange={ ( value ) =>
+								setAttributes( { arrowNav: value } )
+							}
+						/>
 				</PanelBody>
         </InspectorControls>
 	);
 
 
-	
 	const [posts, setPosts] = useState([])
 	const [isLoading, setLoading] = useState(true)
-							
+
     useEffect(() => {
 
         async function loadPosts() {
@@ -90,7 +135,7 @@ export default function Edit( { attributes, setAttributes }) {
             const posts = await response.json();
             setPosts(posts);
 
-			setLoading(false)
+			setLoading(false);
 
         }
     
@@ -98,12 +143,15 @@ export default function Edit( { attributes, setAttributes }) {
 		
 	}, [attributes.jsonFeed])
 
-   	console.log( posts )
 
-	const postclasses = classnames( 'slideshow-mgarcia-list', {
+
+	const postclasses = classnames( 'slideshow-mgarcia-container', {
         'has-featured': featuredImage,
 		'has-meta': postMeta,
-		'has-excerpt': postExcerpt
+		'has-excerpt': postExcerpt,
+		'has-bullet-nav': bulletNav,
+		'has-arrow-nav': arrowNav,
+		'has-feed-front-end': feedFrontEnd
     } );
 
 
@@ -112,14 +160,16 @@ export default function Edit( { attributes, setAttributes }) {
 
 		<div { ...useBlockProps() }>
 			{ inspectorControls }
-			<div class="slideshow-mgarcia-container">
-			<div class="slideshow-mgarcia-feed-title"><h5>{ __( 'Feed address:', 'slideshow-mgarcia' ) } <span>{ jsonFeed } - { feedCount }</span></h5></div>
 
+			<div className={ postclasses }>
+
+			<div class="slideshow-mgarcia-feed-title"><h5>{ __( 'Feed address:', 'slideshow-mgarcia' ) } <span>{ jsonFeed }</span></h5></div>
+			
 			{isLoading ? (
 				<Spinner />
         	) : (
 				<div class="slideshow-mgarcia-edit-container">
-				<ul className={ postclasses }>
+				<ul class="slideshow-mgarcia-list">
 				{posts.slice(0, feedCount ).map((post) => {
 					const titleTrimmed = post.title.rendered.trim();
      				const cleanExcerpt = post.excerpt.rendered;
