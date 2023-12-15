@@ -4,7 +4,6 @@ import './editor.scss';
 import {useState, useEffect} from '@wordpress/element'
 import { SelectControl, PanelBody, Spinner, Placeholder, RangeControl, ToggleControl, } from '@wordpress/components';
 import classnames from 'classnames';
-import { useSelect } from '@wordpress/data';
 
 export default function Edit( { attributes, setAttributes }) {
 
@@ -38,7 +37,7 @@ export default function Edit( { attributes, setAttributes }) {
 							value={ jsonFeed }
 							options={ [
 								{ label: 'WPTavern.com Feed', value: 'https://wptavern.com/wp-json/wp/v2/posts/?_embed' },
-								{ label: __( 'Local Feed', 'slideshow-mgarcia' ), value: 'http://localhost:8888/gutenberg/wp-json/wp/v2/posts/?_embed' },
+								{ label: __( 'Local Feed', 'slideshow-mgarcia' ), value: '/wp-json/wp/v2/posts/?_embed' },
 								{ label: 'CSS-Tricks.com Feed', value: 'https://css-tricks.com/wp-json/wp/v2/posts/?_embed' },
 								{ label: 'rtcamp.com Feed', value: 'https://rtcamp.com/wp-json/wp/v2/posts/?_embed' },
 							] }
@@ -143,8 +142,6 @@ export default function Edit( { attributes, setAttributes }) {
 		
 	}, [attributes.jsonFeed])
 
-
-
 	const postclasses = classnames( 'slideshow-mgarcia-container', {
         'has-featured': featuredImage,
 		'has-meta': postMeta,
@@ -154,14 +151,12 @@ export default function Edit( { attributes, setAttributes }) {
 		'has-feed-front-end': feedFrontEnd
     } );
 
-
-
     return (
 
 		<div { ...useBlockProps() }>
 			{ inspectorControls }
 
-			<div className={ postclasses }>
+			<div class={ postclasses }>
 
 			<div class="slideshow-mgarcia-feed-title"><h5>{ __( 'Feed address:', 'slideshow-mgarcia' ) } <span>{ jsonFeed }</span></h5></div>
 			
@@ -171,8 +166,8 @@ export default function Edit( { attributes, setAttributes }) {
 				<div class="slideshow-mgarcia-edit-container">
 				<ul class="slideshow-mgarcia-list">
 				{posts.slice(0, feedCount ).map((post) => {
-					const titleTrimmed = post.title.rendered.trim();
-     				const cleanExcerpt = post.excerpt.rendered;
+					const titleTrimmed = post.title.rendered.trim()
+     				const cleanExcerpt = post.excerpt.rendered
 
 					return (
 						<li class="slideshow-mgarcia-list-item" id={"mg-slide-" + post.id}>
@@ -187,7 +182,7 @@ export default function Edit( { attributes, setAttributes }) {
 
 							<h2 class="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{  __html: titleTrimmed }}></a></h2>
 							
-							<div className="slideshow-mgarcia-meta-list has-small-font-size">
+							<div class="slideshow-mgarcia-meta-list has-small-font-size">
 								<span class="slideshow-mgarcia-date">{moment(post.date).format('MMMM Do, YYYY')}</span>
 								<span class="slideshow-mgarcia-date-dash"> &ndash; </span>
 								<span class="slideshow-mgarcia-author"> { __( 'By', 'slideshow-mgarcia' ) } <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>

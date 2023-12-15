@@ -48,7 +48,6 @@ add_filter( 'block_categories_all' , function( $categories ) {
 
 
 //Fetch posts via wp_remote_get and cache
-define( 'HOURS', 60 * 60 * 12 );
 function get_remote_api_data( $attributes ) {
 	global $apiData;
 	   if( empty($apiData) ) $apiInfo = get_transient('api_data');
@@ -67,7 +66,7 @@ function get_remote_api_data( $attributes ) {
 
 	$apiData= json_decode($data);
    
-	set_transient( 'api_data', $apiData, HOURS );
+	set_transient( 'api_data', $apiData, 24 * HOUR_IN_SECONDS );
    
 	return $apiInfo;
    
@@ -77,7 +76,6 @@ function get_remote_api_data( $attributes ) {
 // Render Front-end Block
 function slideshow_mgarcia_render_post_list ($attributes) {
 
-	
 	$feed = get_remote_api_data( $attributes );
 
 	ob_start(); ?>
@@ -99,6 +97,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 	
 		<?php 
 			$i = 0;
+			if(is_array($feed)) {
 			foreach($feed as $post) {
 			if ($i <  $attributes['feedCount'] ) {
 				$postID= $post->id; 
@@ -141,7 +140,8 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 		<?php
 			}
 			$i++;
-			} ?>
+			} 
+		}?>
 
 		</ul>
 		
@@ -149,6 +149,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 		<ol class="slideshow-mgarcia-bullets">
 			<?php 
 			$i = 0;
+			if(is_array($feed)) {
 			foreach($feed as $post)  {
 				if ($i < $attributes['feedCount'] ) {
 				$postID= $post->id; 	
@@ -157,7 +158,8 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 			<?php
 			}
 			$i++;
-			} ?>
+			}
+		 	} ?>
   		</ol>
 
 		<!-- Arrow Navigation -->
