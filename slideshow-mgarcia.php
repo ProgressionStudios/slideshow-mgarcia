@@ -141,9 +141,11 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 			}
 			$i++;
 			} 
-		}?>
+		} else { ?>
+			<div class="slideshow-mgarcia-nofeed"><h5><?php echo esc_html__( 'Please refresh page to get latest posts', 'slideshow-mgarcia' ); ?></h5</div>
+		<?php } ?>
 
-		</ul>
+		</ul>	
 		
 		<!-- Bullet Navigation -->
 		<ol class="slideshow-mgarcia-bullets">
