@@ -37,9 +37,11 @@ export default function Edit( { attributes, setAttributes }) {
 							value={ jsonFeed }
 							options={ [
 								{ label: 'WPTavern.com Feed', value: 'https://wptavern.com/wp-json/wp/v2/posts/?_embed' },
-								{ label: __( 'Local Feed', 'slideshow-mgarcia' ), value: '/wp-json/wp/v2/posts/?_embed' },
+								{ label: 'WPDeveloper.com Feed', value: 'https://wpdeveloper.com/wp-json/wp/v2/posts/?_embed' },
 								{ label: 'CSS-Tricks.com Feed', value: 'https://css-tricks.com/wp-json/wp/v2/posts/?_embed' },
-								{ label: 'rtcamp.com Feed', value: 'https://rtcamp.com/wp-json/wp/v2/posts/?_embed' },
+								{ label: 'GutenbergTimes.com Feed', value: 'https://gutenbergtimes.com/wp-json/wp/v2/posts/?_embed' },
+								{ label: 'GutenbergHub.com Feed', value: 'https://gutenberghub.com/wp-json/wp/v2/posts/?_embed' },
+								{ label: __( 'Local Feed', 'slideshow-mgarcia' ), value: '/wp-json/wp/v2/posts/?_embed' },
 							] }
 							onChange={ ( value ) => setAttributes( { jsonFeed: value } ) }
 						/>

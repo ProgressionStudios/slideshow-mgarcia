@@ -3,12 +3,20 @@ A plugin that provides the users with a custom Gutenberg block that fetches the 
 
 [Slideshow block example](https://slideshow-block.progressionstudios.com/)
 
+Feed List:
+* [WPTavern.com Feed](https://wptavern.com)
+* [WPDeveloper.com Feed](https://wpdeveloper.com)
+* [CSS-Tricks.com Feed](https://css-tricks.com)
+* [GutenbergTimes.com Feed](https://gutenbergtimes.com)
+* [GutenbergHub.com Feed](https://gutenberghub.com/)
+* LocalHost Feed
+
 
 ## Getting Started ##
 1. Download the zip file and install plugin within your WordPress Dashboard
 2. Find the "Post Slideshow" block under the block category "Michaels Blocks"
 
-![Selecting slideshow block](https://slideshow-block.progressionstudios.com/wp-content/uploads/2023/12/post-slideshow-block.jpg)
+![Selecting slideshow block](https://slideshow-block.progressionstudios.com/wp-content/uploads/2023/12/post-slideshow-block-1.jpg)
 
 
 ## Block Options ##
