@@ -196,7 +196,7 @@ function Edit({
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
       src: post._embedded['wp:featuredmedia'][0].source_url
     })))
-    //<a href={post.link} target="_blank"><img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}/> Used source image size instead as large image was not used globally
+    //<a href={post.link} target="_blank"><img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}/> Used source image size instead as large image was missing from some feeds
     : null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
       class: "wp-block-post-title has-large-font-size"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
