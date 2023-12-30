@@ -1,7 +1,7 @@
 # Gutenberg Slideshow Block for WordPress Posts
 A plugin that provides the users with a custom Gutenberg block that fetches the latest posts using WP REST API from popular WordPress news websites.
 
-[Slideshow block example](https://slideshow-block.progressionstudios.com/)
+[Slideshow block example](https://gutenberg.progressionstudios.com/)
 
 News Feed List:
 * [WPTavern.com Feed](https://wptavern.com)
@@ -16,7 +16,7 @@ News Feed List:
 1. Download the zip file and install plugin within your WordPress Dashboard
 2. Find the "Post Slideshow" block under the block category "Michaels Blocks"
 
-![Selecting slideshow block](https://slideshow-block.progressionstudios.com/wp-content/uploads/2023/12/post-slideshow-block.jpg)
+![Selecting slideshow block](https://gutenberg.progressionstudios.com/wp-content/uploads/2023/12/post-slideshow-block.jpg)
 
 
 ## Block Options ##
@@ -25,7 +25,7 @@ News Feed List:
 * Autoplay support on front end display
 * Style options include text color and typography
 
-![Slideshow block options](https://slideshow-block.progressionstudios.com/wp-content/uploads/2023/12/post-slideshow-block-1.jpg)
+![Slideshow block options](https://gutenberg.progressionstudios.com/wp-content/uploads/2023/12/post-slideshow-block-1.jpg)
 
 
 ## Tools used  ##
