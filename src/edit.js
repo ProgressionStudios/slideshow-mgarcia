@@ -158,40 +158,40 @@ export default function Edit( { attributes, setAttributes }) {
 		<div { ...useBlockProps() }>
 			{ inspectorControls }
 
-			<div class={ postclasses }>
+			<div className={ postclasses }>
 
-			<div class="slideshow-mgarcia-feed-title"><h5>{ __( 'Feed address:', 'slideshow-mgarcia' ) } <span>{ jsonFeed }</span></h5></div>
+			<div className="slideshow-mgarcia-feed-title"><h5>{ __( 'Feed address:', 'slideshow-mgarcia' ) } <span>{ jsonFeed }</span></h5></div>
 			
 			{isLoading ? (
 				<Spinner />
         	) : (
-				<div class="slideshow-mgarcia-edit-container">
-				<ul class="slideshow-mgarcia-list">
+				<div className="slideshow-mgarcia-edit-container">
+				<ul className="slideshow-mgarcia-list">
 				{posts.slice(0, feedCount ).map((post) => {
 					const titleTrimmed = post.title.rendered.trim()
      				const cleanExcerpt = post.excerpt.rendered
 
 					return (
-						<li class="slideshow-mgarcia-list-item" id={"mg-slide-" + post.id}>
-							<div class="slideshow-mgarcia-list-container">
+						<li className="slideshow-mgarcia-list-item" id={"mg-slide-" + post.id}>
+							<div className="slideshow-mgarcia-list-container">
 							{ post._embedded['wp:featuredmedia'] ? (
-								<div class="wp-block-post-featured-image">
+								<div className="wp-block-post-featured-image">
 										<a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url}/>
 										</a></div>
 										//<a href={post.link} target="_blank"><img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}/> Used source image size instead as large image was missing from some feeds
 								) : null
 							}
 
-							<h2 class="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{  __html: titleTrimmed }}></a></h2>
+							<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{  __html: titleTrimmed }}></a></h2>
 							
-							<div class="slideshow-mgarcia-meta-list has-small-font-size">
-								<span class="slideshow-mgarcia-date">{moment(post.date).format('MMMM Do, YYYY')}</span>
-								<span class="slideshow-mgarcia-date-dash"> &ndash; </span>
-								<span class="slideshow-mgarcia-author"> { __( 'By', 'slideshow-mgarcia' ) } <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
-								<span class="slideshow-mgarcia-cat"> { __( 'in', 'slideshow-mgarcia' ) } <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
+							<div className="slideshow-mgarcia-meta-list has-small-font-size">
+								<span className="slideshow-mgarcia-date">{moment(post.date).format('MMMM Do, YYYY')}</span>
+								<span className="slideshow-mgarcia-date-dash"> &ndash; </span>
+								<span className="slideshow-mgarcia-author"> { __( 'By', 'slideshow-mgarcia' ) } <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
+								<span className="slideshow-mgarcia-cat"> { __( 'in', 'slideshow-mgarcia' ) } <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
 							</div>
 
-							<div class="slideshow-mgarcia-meta-excerpt" dangerouslySetInnerHTML={{  __html: cleanExcerpt }}  />
+							<div className="slideshow-mgarcia-meta-excerpt" dangerouslySetInnerHTML={{  __html: cleanExcerpt }}  />
 							</div>
 						</li>
 				 	 )
@@ -199,7 +199,7 @@ export default function Edit( { attributes, setAttributes }) {
    				})}
 				</ul>
 				
-				<ol class="slideshow-mgarcia-bullets">
+				<ol className="slideshow-mgarcia-bullets">
 					{posts.slice(0, feedCount ).map((post) => {
 					return (
                         <li><a href={"#mg-slide-" + post.id}></a></li>
@@ -210,8 +210,8 @@ export default function Edit( { attributes, setAttributes }) {
 				</div>
        		 )}
 
-				<div class="slideshow-mgarcia-prev">&lsaquo;</div>
-				<div class="slideshow-mgarcia-next">&rsaquo;</div>
+				<div className="slideshow-mgarcia-prev">&lsaquo;</div>
+				<div className="slideshow-mgarcia-next">&rsaquo;</div>
 			</div>
 		</div>
 
