@@ -16,7 +16,7 @@ News Feed List:
 1. Download the zip file and install plugin within your WordPress Dashboard
 2. Find the "Post Slideshow" block under the block category "Michaels Blocks"
 
-![Selecting slideshow block](https://gutenberg.progressionstudios.com/wp-content/uploads/2023/12/post-slideshow-block.jpg)
+![Selecting slideshow block](https://gutenberg.progressionstudios.com/wp-content/uploads/2024/01/post-slideshow-block.jpg)
 
 
 ## Block Options ##
