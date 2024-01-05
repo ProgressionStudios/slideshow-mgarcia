@@ -134,8 +134,6 @@ export default function Edit( { attributes, setAttributes }) {
         loadPosts();
 	}, [])
 	
-	console.log(posts)
-
 
 	const postclasses = classnames( 'slideshow-mgarcia-container', {
         'has-featured': featuredImage,
