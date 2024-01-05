@@ -160,8 +160,7 @@ function Edit({
       setLoading(false);
     }
     loadPosts();
-  }, []);
-  console.log(posts);
+  }, [attributes.jsonFeed]);
   const postclasses = classnames__WEBPACK_IMPORTED_MODULE_6___default()('slideshow-mgarcia-container', {
     'has-featured': featuredImage,
     'has-meta': postMeta,
