@@ -121,28 +121,21 @@ export default function Edit( { attributes, setAttributes }) {
 	const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
-
         async function loadPosts() {
-
 			setLoading(true);//Causes loading spinner each time jsonfeed is changed
-
-
-            const response = await fetch( jsonFeed );
-            if(!response.ok) {
-                // oups! something went wrong
-                return;
-            }
-    
-            const posts = await response.json();
-            setPosts(posts);
-
+			const response = await fetch( jsonFeed );
+			if(!response.ok) {
+					return; // oups! something went wrong
+			}
+			const posts = await response.json();
+			setPosts(posts);
 			setLoading(false);
-
         }
-    
         loadPosts();
-		
-	}, [attributes.jsonFeed])
+	}, [])
+	
+	console.log(posts)
+
 
 	const postclasses = classnames( 'slideshow-mgarcia-container', {
         'has-featured': featuredImage,
@@ -152,6 +145,7 @@ export default function Edit( { attributes, setAttributes }) {
 		'has-arrow-nav': arrowNav,
 		'has-feed-front-end': feedFrontEnd
     } );
+
 
     return (
 

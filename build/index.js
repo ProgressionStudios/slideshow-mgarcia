@@ -151,18 +151,17 @@ function Edit({
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
     async function loadPosts() {
       setLoading(true); //Causes loading spinner each time jsonfeed is changed
-
       const response = await fetch(jsonFeed);
       if (!response.ok) {
-        // oups! something went wrong
-        return;
+        return; // oups! something went wrong
       }
       const posts = await response.json();
       setPosts(posts);
       setLoading(false);
     }
     loadPosts();
-  }, [attributes.jsonFeed]);
+  }, []);
+  console.log(posts);
   const postclasses = classnames__WEBPACK_IMPORTED_MODULE_6___default()('slideshow-mgarcia-container', {
     'has-featured': featuredImage,
     'has-meta': postMeta,

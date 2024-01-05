@@ -55,26 +55,21 @@ if ( ! function_exists('filter_block_categories_mgarcia')) {
 //Fetch posts via wp_remote_get and cache
 function get_remote_api_data( $attributes ) {
 	global $apiData;
-	   if( empty($apiData) ) $apiInfo = get_transient('api_data');
-	   if( !empty($apiData) ) return $apiData;
-
+	if( empty($apiData) ) $apiInfo = get_transient('api_data');
+	if( !empty($apiData) ) return $apiData;
 
 	$selectedFeed = $attributes['jsonFeed']; 
 
 	$response = wp_remote_get( $selectedFeed ,  array(
 		 'timeout'     => 20,
 	));
-
 	$data = wp_remote_retrieve_body($response);
 
 	if( empty($data) ) return false;
 
 	$apiData= json_decode($data);
-   
 	set_transient( 'api_data', $apiData, 24 * HOUR_IN_SECONDS );
-   
 	return $apiInfo;
-   
 }
 
 
