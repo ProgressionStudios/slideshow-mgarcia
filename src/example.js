@@ -1,6 +1,6 @@
 const example = {
 	attributes: {
-		jsonFeed: "https://wptavern.com/wp-json/wp/v2/posts/",
+		jsonFeed: "https://wpdeveloper.com/wp-json/wp/v2/posts/",
 	},
 };
 

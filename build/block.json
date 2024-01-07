@@ -10,7 +10,7 @@
   "attributes": {
     "jsonFeed": {
       "type": "string",
-      "default": "https://wptavern.com/wp-json/wp/v2/posts/"
+      "default": "https://wpdeveloper.com/wp-json/wp/v2/posts/"
     },
     "featuredImage": {
       "type": "boolean",
@@ -38,7 +38,7 @@
     },
     "feedFrontEnd": {
       "type": "boolean",
-      "default": false
+      "default": true
     },
     "autoplaySlider": {
       "type": "boolean",
@@ -47,6 +47,14 @@
     "autoplayDuration": {
       "type": "number",
       "default": 3500
+    },
+    "customFeed": {
+      "type": "boolean",
+      "default": true
+    },
+    "customFeedAddress": {
+      "type": "string",
+      "default": "https://wptavern.com"
     }
   },
   "supports": {

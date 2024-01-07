@@ -46,22 +46,39 @@ function Edit({
     arrowNav,
     feedFrontEnd,
     autoplaySlider,
-    autoplayDuration
+    autoplayDuration,
+    customFeed,
+    customFeedAddress
   } = attributes;
   const inspectorControls = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
     key: "inspector"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Layout', 'slideshow-mgarcia'),
     initialOpen: true
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.SelectControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Posts Feed', 'slideshow-mgarcia'),
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use Custom Feed', 'slideshow-mgarcia'),
+    checked: customFeed,
+    onChange: value => setAttributes({
+      customFeed: value
+    })
+  }), customFeed ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+    class: "title-compare-mgarcia"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display Feed From:', 'slideshow-mgarcia')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.__experimentalInputControl, {
+    value: customFeedAddress,
+    placeholder: "Ex: https://yourwebsite.com",
+    type: "url",
+    onChange: value => setAttributes({
+      customFeedAddress: value
+    })
+  })) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WordPress News Feeds', 'slideshow-mgarcia'),
     value: jsonFeed,
     options: [{
-      label: 'WPTavern.com Feed',
-      value: 'https://wptavern.com/wp-json/wp/v2/posts/'
-    }, {
       label: 'WPDeveloper.com Feed',
       value: 'https://wpdeveloper.com/wp-json/wp/v2/posts/'
+    }, {
+      label: 'WPTavern.com Feed',
+      value: 'https://wptavern.com/wp-json/wp/v2/posts/'
     }, {
       label: 'CSS-Tricks.com Feed',
       value: 'https://css-tricks.com/wp-json/wp/v2/posts/'
@@ -145,7 +162,8 @@ function Edit({
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
     async function loadPosts() {
       setLoading(true); //Causes loading spinner each time jsonfeed is changed
-      const response = await fetch(`${jsonFeed}?_embed`);
+      const updateURL = customFeed ? `${customFeedAddress}/wp-json/wp/v2/posts/?_embed&per_page=${feedCount}` : `${jsonFeed}?_embed&per_page=${feedCount}`;
+      const response = await fetch(updateURL);
       if (!response.ok) {
         return; // oups! something went wrong
       }
@@ -154,7 +172,8 @@ function Edit({
       setLoading(false);
     }
     loadPosts();
-  }, [attributes.jsonFeed]);
+  }, [customFeed, feedCount, jsonFeed, customFeedAddress]);
+  console.log(posts);
   const postclasses = classnames__WEBPACK_IMPORTED_MODULE_6___default()('slideshow-mgarcia-container', {
     'has-featured': featuredImage,
     'has-meta': postMeta,
@@ -169,11 +188,11 @@ function Edit({
     className: postclasses
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "slideshow-mgarcia-feed-title"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h5", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Feed address:', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, jsonFeed))), isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.Spinner, null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h5", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Feed address:', 'slideshow-mgarcia'), customFeed == '1' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, customFeedAddress, "/wp-json/wp/v2/posts/") : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, jsonFeed))), isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.Spinner, null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "slideshow-mgarcia-edit-container"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "slideshow-mgarcia-list"
-  }, posts.slice(0, feedCount).map(post => {
+  }, posts.map(post => {
     const titleTrimmed = post.title.rendered.trim();
     const cleanExcerpt = post.excerpt.rendered;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
@@ -220,7 +239,7 @@ function Edit({
     })));
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ol", {
     className: "slideshow-mgarcia-bullets"
-  }, posts.slice(0, feedCount).map(post => {
+  }, posts.map(post => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
       href: "#mg-slide-" + post.id
     }));
@@ -246,7 +265,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const example = {
   attributes: {
-    jsonFeed: "https://wptavern.com/wp-json/wp/v2/posts/"
+    jsonFeed: "https://wpdeveloper.com/wp-json/wp/v2/posts/"
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (example);
@@ -477,7 +496,7 @@ module.exports = window["wp"]["i18n"];
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow Block for WordPress Posts","attributes":{"jsonFeed":{"type":"string","default":"https://wptavern.com/wp-json/wp/v2/posts/"},"featuredImage":{"type":"boolean","default":true},"postMeta":{"type":"boolean","default":true},"postExcerpt":{"type":"boolean","default":true},"feedCount":{"type":"number","default":5},"bulletNav":{"type":"boolean","default":true},"arrowNav":{"type":"boolean","default":true},"feedFrontEnd":{"type":"boolean","default":false},"autoplaySlider":{"type":"boolean","default":false},"autoplayDuration":{"type":"number","default":3500}},"supports":{"html":false,"align":["wide","full"],"color":{"background":true,"text":true,"link":true},"spacing":{"margin":true,"padding":true},"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalTextTransform":true,"__experimentalTextDecoration":true,"__experimentalLetterSpacing":true,"__experimentalDefaultControls":{"fontSize":true}}},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow Block for WordPress Posts","attributes":{"jsonFeed":{"type":"string","default":"https://wpdeveloper.com/wp-json/wp/v2/posts/"},"featuredImage":{"type":"boolean","default":true},"postMeta":{"type":"boolean","default":true},"postExcerpt":{"type":"boolean","default":true},"feedCount":{"type":"number","default":5},"bulletNav":{"type":"boolean","default":true},"arrowNav":{"type":"boolean","default":true},"feedFrontEnd":{"type":"boolean","default":true},"autoplaySlider":{"type":"boolean","default":false},"autoplayDuration":{"type":"number","default":3500},"customFeed":{"type":"boolean","default":true},"customFeedAddress":{"type":"string","default":"https://wptavern.com"}},"supports":{"html":false,"align":["wide","full"],"color":{"background":true,"text":true,"link":true},"spacing":{"margin":true,"padding":true},"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalTextTransform":true,"__experimentalTextDecoration":true,"__experimentalLetterSpacing":true,"__experimentalDefaultControls":{"fontSize":true}}},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

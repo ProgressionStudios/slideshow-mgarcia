@@ -58,8 +58,12 @@ function get_remote_api_data( $attributes ) {
 	if( empty($apiData) ) $apiInfo = get_transient('api_data');
 	if( !empty($apiData) ) return $apiData;
 
-	$selectedFeed = $attributes['jsonFeed'] . "?_embed"; 
-
+	if( $attributes['customFeed'] == '1' ) {
+		$selectedFeed = $attributes['customFeedAddress'] . "/wp-json/wp/v2/posts/?_embed&per_page=" . $attributes['feedCount']; 
+	} else {
+		$selectedFeed = $attributes['jsonFeed'] . "?_embed&per_page=" . $attributes['feedCount']; 
+	}
+	
 	$response = wp_remote_get( $selectedFeed ,  array(
 		 'timeout'     => 20,
 	));
@@ -79,7 +83,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 	$feed = get_remote_api_data( $attributes );
 
 	ob_start(); ?>
-
+	<?php if(is_array($feed)) { ?>
 	<div <?php echo get_block_wrapper_attributes(); ?>>
 		<div class="slideshow-mgarcia-container
 		<?php
@@ -91,15 +95,24 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 				if($attributes['feedFrontEnd'] == '1' ){ echo ' has-feed-front-end'; }
 		?>" <?php if( $attributes['autoplaySlider'] == '1' ): ?>duration="<?php echo esc_attr($attributes['autoplayDuration']) ?>"<?php endif; ?>>
 
-		<div class="slideshow-mgarcia-feed-title"><h5><?php echo esc_html__( 'Feed Address:', 'slideshow-mgarcia' ) ?> <span><?php $selectedFeed = $attributes['jsonFeed'] . "?_embed";  echo $selectedFeed; ?></span></h5></div>
+		<div class="slideshow-mgarcia-feed-title">
+			<h5>
+			<?php echo esc_html__( 'Feed Address:', 'slideshow-mgarcia' ) ?> 
+			<span>
+				<?php if( $attributes['customFeed'] == '0' ): ?>	
+					<?php $selectedFeed = $attributes['jsonFeed'];  echo $selectedFeed; ?>
+				<?php else: ?>
+					<?php $customFeed = $attributes['customFeedAddress'];  echo $customFeed; ?>/wp-json/wp/v2/posts/
+				<?php endif; ?>
+			</span>
+			
+			</h5>
+		</div>
 
 		<ul class="slideshow-mgarcia-list">
 	
 		<?php 
-			$i = 0;
-			if(is_array($feed)) {
 			foreach($feed as $post) {
-			if ($i <  $attributes['feedCount'] ) {
 				$postID= $post->id; 
 				$title= $post->title->rendered;
 				$postLink= $post->link;
@@ -136,32 +149,19 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 				<div class="slideshow-mgarcia-meta-excerpt"><?php echo wp_kses($excerptPost, true); ?></div>
 				</div>
 			</li>
-
-		<?php
-			}
-			$i++;
-			} 
-		} else { ?>
-			<div class="slideshow-mgarcia-nofeed"><h5><?php echo esc_html__( 'Please refresh page to get latest posts', 'slideshow-mgarcia' ); ?></h5</div>
-		<?php } ?>
-
+			<?php
+			}?>
 		</ul>	
 		
 		<!-- Bullet Navigation -->
 		<ol class="slideshow-mgarcia-bullets">
 			<?php 
-			$i = 0;
-			if(is_array($feed)) {
 			foreach($feed as $post)  {
-				if ($i < $attributes['feedCount'] ) {
 				$postID= $post->id; 	
 			?>
 				<li><a href="#mg-slide-<?php echo esc_attr($postID); ?>"></a></li>
 			<?php
-			}
-			$i++;
-			}
-		 	} ?>
+			} ?>
   		</ol>
 
 		<!-- Arrow Navigation -->
@@ -169,6 +169,10 @@ function slideshow_mgarcia_render_post_list ($attributes) {
   		<div class="slideshow-mgarcia-next">&rsaquo;</div>
 
 		</div><!-- close .slideshow-mgarcia-container -->
+		<?php
+			} else { ?>
+			<div class="slideshow-mgarcia-nofeed"><h5><?php echo esc_html__( 'No posts were found', 'slideshow-mgarcia' ); ?></h5</div>
+		<?php } ?>
 	</div>
 
 	<?php return ob_get_clean(); 

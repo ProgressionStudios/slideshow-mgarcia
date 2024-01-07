@@ -2,7 +2,8 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps,  InspectorControls, } from '@wordpress/block-editor';
 import './editor.scss';
 import {useState, useEffect} from '@wordpress/element'
-import { SelectControl, PanelBody, Spinner, Placeholder, RangeControl, ToggleControl, } from '@wordpress/components';
+import { SelectControl, PanelBody, Spinner, Placeholder, RangeControl, ToggleControl, __experimentalInputControl as InputControl} from '@wordpress/components';
+
 import classnames from 'classnames';
 
 export default function Edit( { attributes, setAttributes }) {
@@ -17,19 +18,41 @@ export default function Edit( { attributes, setAttributes }) {
 		arrowNav,
 		feedFrontEnd,
 		autoplaySlider,
-		autoplayDuration
+		autoplayDuration,
+		customFeed,
+		customFeedAddress
 	} = attributes;
 
 
 	const inspectorControls = (
 		<InspectorControls key="inspector">
 				<PanelBody title={ __( 'Layout', 'slideshow-mgarcia' ) } initialOpen={ true }>
+						<ToggleControl
+							label={ __( 'Use Custom Feed', 'slideshow-mgarcia' ) }
+							checked={ customFeed }
+							onChange={ ( value ) =>
+								setAttributes( { customFeed: value } )
+							}
+						/>
+						{ customFeed  ? (
+							<>
+							<h2 class="title-compare-mgarcia">{ __( 'Display Feed From:', 'slideshow-mgarcia' ) }</h2>
+							<InputControl
+							value={ customFeedAddress }
+							placeholder="Ex: https://yourwebsite.com"
+							type="url"
+							onChange={ ( value ) =>
+								setAttributes( { customFeedAddress: value } )
+							}
+							/>
+							</>
+						) : (
 						<SelectControl
-							label= { __( 'Posts Feed', 'slideshow-mgarcia' ) }
+							label= { __( 'WordPress News Feeds', 'slideshow-mgarcia' ) }
 							value={ jsonFeed }
 							options={ [
-								{ label: 'WPTavern.com Feed', value: 'https://wptavern.com/wp-json/wp/v2/posts/' },
 								{ label: 'WPDeveloper.com Feed', value: 'https://wpdeveloper.com/wp-json/wp/v2/posts/' },
+								{ label: 'WPTavern.com Feed', value: 'https://wptavern.com/wp-json/wp/v2/posts/' },
 								{ label: 'CSS-Tricks.com Feed', value: 'https://css-tricks.com/wp-json/wp/v2/posts/' },
 								{ label: 'GutenbergTimes.com Feed', value: 'https://gutenbergtimes.com/wp-json/wp/v2/posts/' },
 								{ label: 'GutenbergHub.com Feed', value: 'https://gutenberghub.com/wp-json/wp/v2/posts/' },
@@ -37,6 +60,7 @@ export default function Edit( { attributes, setAttributes }) {
 							] }
 							onChange={ ( value ) => setAttributes( { jsonFeed: value } ) }
 						/>
+						)}
 						<ToggleControl
 							label={ __( 'Display featured image', 'slideshow-mgarcia' ) }
 							checked={ featuredImage }
@@ -118,16 +142,20 @@ export default function Edit( { attributes, setAttributes }) {
     useEffect(() => {
         async function loadPosts() {
 			setLoading(true);//Causes loading spinner each time jsonfeed is changed
-			const response = await fetch( `${jsonFeed}?_embed` );
+			const updateURL = customFeed ? `${customFeedAddress}/wp-json/wp/v2/posts/?_embed&per_page=${feedCount}` : `${jsonFeed}?_embed&per_page=${feedCount}`;
+			const response = await fetch( updateURL );
+
 			if(!response.ok) {
-					return; // oups! something went wrong
+				return; // oups! something went wrong
 			}
 			const posts = await response.json();
 			setPosts(posts);
 			setLoading(false);
         }
         loadPosts();
-	}, [attributes.jsonFeed])
+	}, [customFeed, feedCount, jsonFeed, customFeedAddress])
+
+	console.log(posts)
 
 
 	const postclasses = classnames( 'slideshow-mgarcia-container', {
@@ -145,14 +173,15 @@ export default function Edit( { attributes, setAttributes }) {
 			{ inspectorControls }
 
 			<div className={ postclasses }>
-			<div className="slideshow-mgarcia-feed-title"><h5>{ __( 'Feed address:', 'slideshow-mgarcia' ) } <span>{ jsonFeed }</span></h5></div>
-			
+			<div className="slideshow-mgarcia-feed-title"><h5>{ __( 'Feed address:', 'slideshow-mgarcia' ) } 
+			{ customFeed == '1' ? ( <span>{ customFeedAddress }/wp-json/wp/v2/posts/</span> ) : ( <span>{ jsonFeed }</span>  )}
+			</h5></div>
 			{isLoading ? (
 				<Spinner />
         	) : (
 				<div className="slideshow-mgarcia-edit-container">
 				<ul className="slideshow-mgarcia-list">
-				{posts.slice(0, feedCount ).map((post) => {
+				{posts.map((post) => {
 					const titleTrimmed = post.title.rendered.trim()
      				const cleanExcerpt = post.excerpt.rendered
 
@@ -185,7 +214,7 @@ export default function Edit( { attributes, setAttributes }) {
 				</ul>
 				
 				<ol className="slideshow-mgarcia-bullets">
-					{posts.slice(0, feedCount ).map((post) => {
+					{posts.map((post) => {
 					return (
                         <li><a href={"#mg-slide-" + post.id}></a></li>
 				 	 );
