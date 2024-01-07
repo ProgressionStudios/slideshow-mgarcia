@@ -1,5 +1,5 @@
 === Slideshow Mgarcia ===
-Contributors:      The WordPress Contributors
+Contributors:      Michael Garcia
 Tags:              block
 Tested up to:      6.4
 Stable tag:        0.1.0

@@ -10,7 +10,7 @@
 	"attributes": {
 		"jsonFeed": {
 			"type": "string",
-			"default": "https://wptavern.com/wp-json/wp/v2/posts/?_embed"
+			"default": "https://wptavern.com/wp-json/wp/v2/posts/"
 		},
 		"featuredImage": {
 			"type": "boolean",

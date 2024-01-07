@@ -18,7 +18,6 @@ import './style.scss';
  * Internal dependencies
  */
 import Edit from './edit';
-import save from './save';
 import metadata from './block.json';
 import example from './example';
 
@@ -34,9 +33,9 @@ registerBlockType( metadata.name, {
 	edit: Edit,
 
 	/**
-	 * @see ./save.js
+	 * @see ./save.js removed save.js and added output via PHP
 	 */
-	save,
+
 
 	example: example,
 

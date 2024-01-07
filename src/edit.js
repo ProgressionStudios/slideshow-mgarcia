@@ -21,14 +21,6 @@ export default function Edit( { attributes, setAttributes }) {
 	} = attributes;
 
 
-	const onChangeItemsPerPage = feedCount => {
-		setAttributes( { feedCount : feedCount } );
-	};
-	
-	const onChangeItemsDuration = autoplayDuration => {
-		setAttributes( { autoplayDuration : autoplayDuration } );
-	};
-
 	const inspectorControls = (
 		<InspectorControls key="inspector">
 				<PanelBody title={ __( 'Layout', 'slideshow-mgarcia' ) } initialOpen={ true }>
@@ -36,12 +28,12 @@ export default function Edit( { attributes, setAttributes }) {
 							label= { __( 'Posts Feed', 'slideshow-mgarcia' ) }
 							value={ jsonFeed }
 							options={ [
-								{ label: 'WPTavern.com Feed', value: 'https://wptavern.com/wp-json/wp/v2/posts/?_embed' },
-								{ label: 'WPDeveloper.com Feed', value: 'https://wpdeveloper.com/wp-json/wp/v2/posts/?_embed' },
-								{ label: 'CSS-Tricks.com Feed', value: 'https://css-tricks.com/wp-json/wp/v2/posts/?_embed' },
-								{ label: 'GutenbergTimes.com Feed', value: 'https://gutenbergtimes.com/wp-json/wp/v2/posts/?_embed' },
-								{ label: 'GutenbergHub.com Feed', value: 'https://gutenberghub.com/wp-json/wp/v2/posts/?_embed' },
-								{ label: __( 'Local Feed', 'slideshow-mgarcia' ), value: '/wp-json/wp/v2/posts/?_embed' },
+								{ label: 'WPTavern.com Feed', value: 'https://wptavern.com/wp-json/wp/v2/posts/' },
+								{ label: 'WPDeveloper.com Feed', value: 'https://wpdeveloper.com/wp-json/wp/v2/posts/' },
+								{ label: 'CSS-Tricks.com Feed', value: 'https://css-tricks.com/wp-json/wp/v2/posts/' },
+								{ label: 'GutenbergTimes.com Feed', value: 'https://gutenbergtimes.com/wp-json/wp/v2/posts/' },
+								{ label: 'GutenbergHub.com Feed', value: 'https://gutenberghub.com/wp-json/wp/v2/posts/' },
+								{ label: __( 'Local Feed', 'slideshow-mgarcia' ), value: '/wp-json/wp/v2/posts/' },
 							] }
 							onChange={ ( value ) => setAttributes( { jsonFeed: value } ) }
 						/>
@@ -86,7 +78,9 @@ export default function Edit( { attributes, setAttributes }) {
 						<RangeControl
 							label= { __( 'Autoplay Duration (milliseconds)', 'slideshow-mgarcia' ) }
 							value={ autoplayDuration }
-							onChange={ onChangeItemsDuration }
+							onChange={ ( value ) =>
+								setAttributes( { autoplayDuration: value } )
+							}
 							min={ 1000 }
 							max={ 10000 }
 						/>
@@ -94,7 +88,9 @@ export default function Edit( { attributes, setAttributes }) {
 						<RangeControl
 							label= { __( 'Post Count', 'slideshow-mgarcia' ) }
 							value={ feedCount }
-							onChange={ onChangeItemsPerPage }
+							onChange={ ( value ) =>
+								setAttributes( { feedCount: value } )
+							}
 							min={ 1 }
 							max={ 10 }
 						/>
@@ -116,14 +112,13 @@ export default function Edit( { attributes, setAttributes }) {
         </InspectorControls>
 	);
 
-
 	const [posts, setPosts] = useState([])
 	const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
         async function loadPosts() {
 			setLoading(true);//Causes loading spinner each time jsonfeed is changed
-			const response = await fetch( jsonFeed );
+			const response = await fetch( `${jsonFeed}?_embed` );
 			if(!response.ok) {
 					return; // oups! something went wrong
 			}
@@ -144,14 +139,12 @@ export default function Edit( { attributes, setAttributes }) {
 		'has-feed-front-end': feedFrontEnd
     } );
 
-
     return (
 
 		<div { ...useBlockProps() }>
 			{ inspectorControls }
 
 			<div className={ postclasses }>
-
 			<div className="slideshow-mgarcia-feed-title"><h5>{ __( 'Feed address:', 'slideshow-mgarcia' ) } <span>{ jsonFeed }</span></h5></div>
 			
 			{isLoading ? (

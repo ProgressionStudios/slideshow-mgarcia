@@ -58,7 +58,7 @@ function get_remote_api_data( $attributes ) {
 	if( empty($apiData) ) $apiInfo = get_transient('api_data');
 	if( !empty($apiData) ) return $apiData;
 
-	$selectedFeed = $attributes['jsonFeed']; 
+	$selectedFeed = $attributes['jsonFeed'] . "?_embed"; 
 
 	$response = wp_remote_get( $selectedFeed ,  array(
 		 'timeout'     => 20,
@@ -91,7 +91,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 				if($attributes['feedFrontEnd'] == '1' ){ echo ' has-feed-front-end'; }
 		?>" <?php if( $attributes['autoplaySlider'] == '1' ): ?>duration="<?php echo esc_attr($attributes['autoplayDuration']) ?>"<?php endif; ?>>
 
-		<div class="slideshow-mgarcia-feed-title"><h5><?php echo esc_html__( 'Feed Address:', 'slideshow-mgarcia' ) ?> <span><?php $selectedFeed = $attributes['jsonFeed'];  echo $selectedFeed; ?></span></h5></div>
+		<div class="slideshow-mgarcia-feed-title"><h5><?php echo esc_html__( 'Feed Address:', 'slideshow-mgarcia' ) ?> <span><?php $selectedFeed = $attributes['jsonFeed'] . "?_embed";  echo $selectedFeed; ?></span></h5></div>
 
 		<ul class="slideshow-mgarcia-list">
 	
