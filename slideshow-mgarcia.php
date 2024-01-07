@@ -110,14 +110,14 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 		</div>
 
 		<ul class="slideshow-mgarcia-list">
-	
+
 		<?php 
 			foreach($feed as $post) {
 				$postID= $post->id; 
 				$title= $post->title->rendered;
 				$postLink= $post->link;
 				$postDate= $post->date;
-				$new_date = date("F jS Y", strtotime($postDate));
+				$new_date = gmdate("F jS Y", strtotime($postDate));
 				$authorName= $post->_embedded->author[0]->name;
 				$authorLink= $post->_embedded->author[0]->link;
 				$postCategory= $post->_embedded->{'wp:term'}[0][0]->name;
