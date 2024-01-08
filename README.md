@@ -25,6 +25,7 @@ Feed Options:
 * Style options include text color and typography
 
 ![Slideshow block any feed](https://gutenberg.progressionstudios.com/wp-content/uploads/2024/01/slideshow-feed-selection.jpg)
+
 ![Slideshow block news selector](https://gutenberg.progressionstudios.com/wp-content/uploads/2024/01/slideshow-news-feeds.jpg)
 
 ## Tools used  ##
