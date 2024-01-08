@@ -52,35 +52,20 @@ if ( ! function_exists('filter_block_categories_mgarcia')) {
 }
 
 
-//Fetch posts via wp_remote_get and cache
-function get_remote_api_data( $attributes ) {
-	global $apiData;
-	if( empty($apiData) ) $apiInfo = get_transient('api_data');
-	if( !empty($apiData) ) return $apiData;
-
+// Render Front-end Block
+function slideshow_mgarcia_render_post_list ($attributes) {
+	
 	if( $attributes['customFeed'] == '1' ) {
 		$selectedFeed = $attributes['customFeedAddress'] . "/wp-json/wp/v2/posts/?_embed&per_page=" . $attributes['feedCount']; 
 	} else {
 		$selectedFeed = $attributes['jsonFeed'] . "?_embed&per_page=" . $attributes['feedCount']; 
 	}
-	
-	$response = wp_remote_get( $selectedFeed ,  array(
-		 'timeout'     => 20,
+	$request = wp_remote_get( $selectedFeed ,  array(
+		'timeout'     => 20,
 	));
-	$data = wp_remote_retrieve_body($response);
-
-	if( empty($data) ) return false;
-
-	$apiData= json_decode($data);
-	set_transient( 'api_data', $apiData, 24 * HOUR_IN_SECONDS );
-	return $apiInfo;
-}
-
-
-// Render Front-end Block
-function slideshow_mgarcia_render_post_list ($attributes) {
-
-	$feed = get_remote_api_data( $attributes );
+	if( is_wp_error( $request ) ) { return false; }
+	$body = wp_remote_retrieve_body( $request );
+	$feed = json_decode( $body );
 
 	ob_start(); ?>
 	<?php if(is_array($feed)) { ?>

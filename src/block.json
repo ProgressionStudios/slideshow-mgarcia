@@ -10,7 +10,7 @@
 	"attributes": {
 		"jsonFeed": {
 			"type": "string",
-			"default": "https://wpdeveloper.com/wp-json/wp/v2/posts/"
+			"default": "https://gutenberghub.com/wp-json/wp/v2/posts/"
 		},
 		"featuredImage": {
 			"type": "boolean",
