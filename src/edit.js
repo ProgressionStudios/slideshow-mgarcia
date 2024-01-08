@@ -182,7 +182,7 @@ export default function Edit( { attributes, setAttributes }) {
 				<>
 					{ feedFailed ? (<div className="slideshow-mgarcia-nofeed"><h5>No posts were found</h5></div> ) : (<Spinner />) }
 				</>
-        	) : (
+			) : (
 				<div className="slideshow-mgarcia-edit-container">
 				<ul className="slideshow-mgarcia-list">
 				{posts.map((post) => {
@@ -220,7 +220,7 @@ export default function Edit( { attributes, setAttributes }) {
 				<ol className="slideshow-mgarcia-bullets">
 					{posts.map((post) => {
 					return (
-                        <li><a href={"#mg-slide-" + post.id}></a></li>
+						<li><a href={"#mg-slide-" + post.id}></a></li>
 				 	 );
    				})}
 				</ol>
@@ -229,9 +229,7 @@ export default function Edit( { attributes, setAttributes }) {
 				<div className="slideshow-mgarcia-next">&rsaquo;</div>
 
 				</div>
-       		 )}
-
-				
+			)}
 			</div>
 		</div>
 
