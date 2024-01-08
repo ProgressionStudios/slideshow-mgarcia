@@ -6,11 +6,11 @@
 	"title": "Post Slideshow",
 	"category": "michaels-blocks",
 	"icon": "slides",
-	"description": "Slideshow Block for WordPress Posts",
+	"description": "Slideshow that fetches blog Posts via the REST API",
 	"attributes": {
 		"jsonFeed": {
 			"type": "string",
-			"default": "https://gutenberghub.com/wp-json/wp/v2/posts/"
+			"default": "https://gutenbergtimes.com/wp-json/wp/v2/posts/"
 		},
 		"featuredImage": {
 			"type": "boolean",

@@ -10,7 +10,7 @@ Gutenberg Slideshow Block for WordPress Posts
 
 == Description ==
 
-A plugin that provides the users with a custom Gutenberg block that fetches the latest posts using WP REST API from popular WordPress news websites.
+A plugin that provides  users with a custom Gutenberg Block that fetches posts using the WordPress REST API from any website address.
 
 == Installation ==
 

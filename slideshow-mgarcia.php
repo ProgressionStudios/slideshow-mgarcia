@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Slideshow Mgarcia
- * Description:       Slideshow Block for WordPress Posts
+ * Description:       Slideshow that fetches blog Posts via the REST API
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           0.1.0

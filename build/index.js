@@ -72,8 +72,8 @@ function Edit({
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WordPress News Feeds', 'slideshow-mgarcia'),
     value: jsonFeed,
     options: [{
-      label: 'GutenbergHub.com Feed',
-      value: 'https://gutenberghub.com/wp-json/wp/v2/posts/'
+      label: 'GutenbergTimes.com Feed',
+      value: 'https://gutenbergtimes.com/wp-json/wp/v2/posts/'
     }, {
       label: 'WPDeveloper.com Feed',
       value: 'https://wpdeveloper.com/wp-json/wp/v2/posts/'
@@ -83,9 +83,6 @@ function Edit({
     }, {
       label: 'CSS-Tricks.com Feed',
       value: 'https://css-tricks.com/wp-json/wp/v2/posts/'
-    }, {
-      label: 'GutenbergTimes.com Feed',
-      value: 'https://gutenbergtimes.com/wp-json/wp/v2/posts/'
     }],
     onChange: value => setAttributes({
       jsonFeed: value
@@ -485,7 +482,7 @@ module.exports = window["wp"]["i18n"];
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow Block for WordPress Posts","attributes":{"jsonFeed":{"type":"string","default":"https://gutenberghub.com/wp-json/wp/v2/posts/"},"featuredImage":{"type":"boolean","default":true},"postMeta":{"type":"boolean","default":true},"postExcerpt":{"type":"boolean","default":true},"feedCount":{"type":"number","default":5},"bulletNav":{"type":"boolean","default":true},"arrowNav":{"type":"boolean","default":true},"feedFrontEnd":{"type":"boolean","default":true},"autoplaySlider":{"type":"boolean","default":false},"autoplayDuration":{"type":"number","default":3500},"customFeed":{"type":"boolean","default":true},"customFeedAddress":{"type":"string","default":"https://wptavern.com"}},"supports":{"html":false,"align":["wide","full"],"color":{"background":true,"text":true,"link":true},"spacing":{"margin":true,"padding":true},"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalTextTransform":true,"__experimentalTextDecoration":true,"__experimentalLetterSpacing":true,"__experimentalDefaultControls":{"fontSize":true}}},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow that fetches blog Posts via the REST API","attributes":{"jsonFeed":{"type":"string","default":"https://gutenbergtimes.com/wp-json/wp/v2/posts/"},"featuredImage":{"type":"boolean","default":true},"postMeta":{"type":"boolean","default":true},"postExcerpt":{"type":"boolean","default":true},"feedCount":{"type":"number","default":5},"bulletNav":{"type":"boolean","default":true},"arrowNav":{"type":"boolean","default":true},"feedFrontEnd":{"type":"boolean","default":true},"autoplaySlider":{"type":"boolean","default":false},"autoplayDuration":{"type":"number","default":3500},"customFeed":{"type":"boolean","default":true},"customFeedAddress":{"type":"string","default":"https://wptavern.com"}},"supports":{"html":false,"align":["wide","full"],"color":{"background":true,"text":true,"link":true},"spacing":{"margin":true,"padding":true},"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalTextTransform":true,"__experimentalTextDecoration":true,"__experimentalLetterSpacing":true,"__experimentalDefaultControls":{"fontSize":true}}},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

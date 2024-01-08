@@ -50,11 +50,10 @@ export default function Edit( { attributes, setAttributes }) {
 							label= { __( 'WordPress News Feeds', 'slideshow-mgarcia' ) }
 							value={ jsonFeed }
 							options={ [
-								{ label: 'GutenbergHub.com Feed', value: 'https://gutenberghub.com/wp-json/wp/v2/posts/' },
+								{ label: 'GutenbergTimes.com Feed', value: 'https://gutenbergtimes.com/wp-json/wp/v2/posts/' },
 								{ label: 'WPDeveloper.com Feed', value: 'https://wpdeveloper.com/wp-json/wp/v2/posts/' },
 								{ label: 'WPTavern.com Feed', value: 'https://wptavern.com/wp-json/wp/v2/posts/' },
-								{ label: 'CSS-Tricks.com Feed', value: 'https://css-tricks.com/wp-json/wp/v2/posts/' },
-								{ label: 'GutenbergTimes.com Feed', value: 'https://gutenbergtimes.com/wp-json/wp/v2/posts/' }
+								{ label: 'CSS-Tricks.com Feed', value: 'https://css-tricks.com/wp-json/wp/v2/posts/' }
 							] }
 							onChange={ ( value ) => setAttributes( { jsonFeed: value } ) }
 						/>
