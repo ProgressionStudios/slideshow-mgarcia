@@ -137,7 +137,7 @@ export default function Edit( { attributes, setAttributes }) {
 	const [isLoading, setLoading] = useState(true)
 	const [feedFailed, setFeedError] = useState(false)
 
-    useEffect(() => {
+	useEffect(() => {
         async function loadPosts() {
 			setLoading(true);//Causes loading spinner each time jsonfeed is changed
 			setFeedError(false);//Error check
@@ -167,9 +167,9 @@ export default function Edit( { attributes, setAttributes }) {
 		'has-bullet-nav': bulletNav,
 		'has-arrow-nav': arrowNav,
 		'has-feed-front-end': feedFrontEnd
-    } );
+	} );
 
-    return (
+	return (
 
 		<div { ...useBlockProps() }>
 			{ inspectorControls }

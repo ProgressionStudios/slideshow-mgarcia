@@ -41,7 +41,7 @@ if ( ! function_exists('filter_block_categories_mgarcia')) {
 				$block_categories,
 				array(
 					'slug'  => 'michaels-blocks',
-					'title' => __( 'Michaels Blocks', 'image-comparison-mgarcia' ),
+					'title' => __( 'Michaels Blocks', 'slideshow-mgarcia' ),
 					'icon'  => null,
 				)
 			);
