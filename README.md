@@ -26,7 +26,7 @@ Feed Options:
 
 ![Slideshow block any feed](https://gutenberg.progressionstudios.com/wp-content/uploads/2024/01/slideshow-feed-selection.jpg)
 
-![Slideshow block news selector](https://gutenberg.progressionstudios.com/wp-content/uploads/2024/01/slideshow-news-feeds.jpg)
+![Slideshow block news selector](https://gutenberg.progressionstudios.com/wp-content/uploads/2024/01/more-slideshow-options.jpgg)
 
 ## Tools used  ##
 * [Gutenberg Create Block Scaffolding](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/)
