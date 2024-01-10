@@ -188,7 +188,6 @@ export default function Edit( { attributes, setAttributes }) {
 									<div className="slideshow-mgarcia-list-container">
 									{ post._embedded['wp:featuredmedia'] &&
 										<div className="wp-block-post-featured-image"><a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url}/></a></div>
-												//<a href={post.link} target="_blank"><img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}/> Used source image size instead as large image was missing from some feeds
 									}
 									<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{  __html: titleTrimmed }}></a></h2>
 									<div className="slideshow-mgarcia-meta-list has-small-font-size">
