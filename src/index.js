@@ -37,6 +37,6 @@ registerBlockType( metadata.name, {
 	 */
 
 
-	example: example,
+	//example: example,
 
 } );

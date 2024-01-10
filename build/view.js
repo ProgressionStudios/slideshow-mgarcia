@@ -25,8 +25,6 @@ var __webpack_exports__ = {};
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 
-/* console.log( 'Hello World! (from create-block-slideshow-mgarcia block)' ); */
-
 /* Carousel with CSS scroll snap JavaScript */
 document.addEventListener('DOMContentLoaded', function () {
   const carousels = document.querySelectorAll('.slideshow-mgarcia-container');

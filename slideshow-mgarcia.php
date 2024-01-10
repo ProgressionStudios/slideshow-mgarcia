@@ -17,13 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-/**
- * Registers the block using the metadata loaded from the `block.json` file.
- * Behind the scenes, it registers also all assets so they can be enqueued
- * through the block editor in the corresponding context.
- *
- * @see https://developer.wordpress.org/reference/functions/register_block_type/
- */
 function slideshow_mgarcia_slideshow_mgarcia_block_init() {
 	register_block_type(  __DIR__ . '/build', array(
         'render_callback' => 'slideshow_mgarcia_render_post_list',
@@ -32,8 +25,7 @@ function slideshow_mgarcia_slideshow_mgarcia_block_init() {
 }
 add_action( 'init', 'slideshow_mgarcia_slideshow_mgarcia_block_init' );
 
-
-//Add new block category https://gutenberghub.com/how-to-create-custom-block-category/
+//Add new block category
 if ( ! function_exists('filter_block_categories_mgarcia')) {
 	function filter_block_categories_mgarcia( $block_categories, $editor_context ) {
 		if ( ! empty( $editor_context->post ) ) {
@@ -51,8 +43,7 @@ if ( ! function_exists('filter_block_categories_mgarcia')) {
 	add_filter( 'block_categories_all', 'filter_block_categories_mgarcia', 10, 2 );
 }
 
-
-// Render Front-end Block
+// Render front-end block
 function slideshow_mgarcia_render_post_list ($attributes) {
 	
 	if( $attributes['customFeed'] == '1' ) {
@@ -95,45 +86,41 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 		</div>
 
 		<ul class="slideshow-mgarcia-list">
+			<?php 
+				foreach($feed as $post) {
+					$postID= $post->id; 
+					$title= $post->title->rendered;
+					$postLink= $post->link;
+					$postDate= $post->date;
+					$new_date = gmdate("F jS Y", strtotime($postDate));
+					$authorName= $post->_embedded->author[0]->name;
+					$authorLink= $post->_embedded->author[0]->link;
+					$postCategory= $post->_embedded->{'wp:term'}[0][0]->name;
+					$postCategoryLink= $post->_embedded->{'wp:term'}[0][0]->link;
+					$excerptPost= $post->excerpt->rendered;
+					if( $post->featured_media != '0' ):
+						$featuredImageSource= $post->_embedded->{'wp:featuredmedia'}[0]->source_url;
+						//$featuredImageSource= $post->_embedded->{'wp:featuredmedia'}[0]->media_details->sizes->{'large'}->source_url; Used source image size instead as large image was not used globally
+						$featuredImageAlt= $post->_embedded->{'wp:featuredmedia'}[0]->title->rendered;
+					endif;
+			?>
+				<li class="slideshow-mgarcia-list-item" id="mg-slide-<?php echo esc_attr($postID); ?>">
+					<div class="slideshow-mgarcia-list-container">
+					<?php if( $post->featured_media != '0' ): ?>
+						<div class="wp-block-post-featured-image"><a href="<?php echo esc_url($postLink) ?>" target="_blank"><img src="<?php echo esc_html($featuredImageSource) ?>" loading="lazy" alt="<?php echo esc_html($featuredImageAlt) ?>"></a></div>
+					<?php endif; ?>
 
-		<?php 
-			foreach($feed as $post) {
-				$postID= $post->id; 
-				$title= $post->title->rendered;
-				$postLink= $post->link;
-				$postDate= $post->date;
-				$new_date = gmdate("F jS Y", strtotime($postDate));
-				$authorName= $post->_embedded->author[0]->name;
-				$authorLink= $post->_embedded->author[0]->link;
-				$postCategory= $post->_embedded->{'wp:term'}[0][0]->name;
-				$postCategoryLink= $post->_embedded->{'wp:term'}[0][0]->link;
-				$excerptPost= $post->excerpt->rendered;
-		
-				if( $post->featured_media != '0' ):
-					$featuredImageSource= $post->_embedded->{'wp:featuredmedia'}[0]->source_url;
-					//$featuredImageSource= $post->_embedded->{'wp:featuredmedia'}[0]->media_details->sizes->{'large'}->source_url; Used source image size instead as large image was not used globally
-					$featuredImageAlt= $post->_embedded->{'wp:featuredmedia'}[0]->title->rendered;
-				endif;
-		?>
+					<h2 class="wp-block-post-title has-large-font-size"><a href="<?php echo esc_url($postLink) ?>" target="_blank"><?php echo esc_html($title); ?></a></h2>
 
-			<li class="slideshow-mgarcia-list-item" id="mg-slide-<?php echo esc_attr($postID); ?>">
-
-				<div class="slideshow-mgarcia-list-container">
-				<?php if( $post->featured_media != '0' ): ?>
-					<div class="wp-block-post-featured-image"><a href="<?php echo esc_url($postLink) ?>" target="_blank"><img src="<?php echo esc_html($featuredImageSource) ?>" loading="lazy" alt="<?php echo esc_html($featuredImageAlt) ?>"></a></div>
-				<?php endif; ?>
-
-				<h2 class="wp-block-post-title has-large-font-size"><a href="<?php echo esc_url($postLink) ?>" target="_blank"><?php echo esc_html($title); ?></a></h2>
-
-				<div class="slideshow-mgarcia-meta-list has-small-font-size">
-					<span class="slideshow-mgarcia-date"><?php echo esc_html($new_date); ?></span>
-					<span class="slideshow-mgarcia-date-dash"> &ndash; </span>
-					<span class="slideshow-mgarcia-author"> <?php echo esc_html__( 'By', 'slideshow-mgarcia' ); ?> <a href="<?php echo esc_url($authorLink); ?>" target="_blank"><?php echo esc_html($authorName); ?></a></span>
-					<span class="slideshow-mgarcia-cat"> <?php echo esc_html__( 'in', 'slideshow-mgarcia' ); ?> <a href="<?php echo esc_url($postCategoryLink); ?>" target="_blank"><?php echo esc_html($postCategory); ?></a></span>
-				</div>
-				<div class="slideshow-mgarcia-meta-excerpt"><?php echo wp_kses($excerptPost, true); ?></div>
-				</div>
-			</li>
+					<div class="slideshow-mgarcia-meta-list has-small-font-size">
+						<span class="slideshow-mgarcia-date"><?php echo esc_html($new_date); ?></span>
+						<span class="slideshow-mgarcia-date-dash"> &ndash; </span>
+						<span class="slideshow-mgarcia-author"> <?php echo esc_html__( 'By', 'slideshow-mgarcia' ); ?> <a href="<?php echo esc_url($authorLink); ?>" target="_blank"><?php echo esc_html($authorName); ?></a></span>
+						<span class="slideshow-mgarcia-cat"> <?php echo esc_html__( 'in', 'slideshow-mgarcia' ); ?> <a href="<?php echo esc_url($postCategoryLink); ?>" target="_blank"><?php echo esc_html($postCategory); ?></a></span>
+					</div>
+					<div class="slideshow-mgarcia-meta-excerpt"><?php echo wp_kses($excerptPost, true); ?></div>
+					</div>
+				</li>
 			<?php
 			}?>
 		</ul>	
@@ -141,9 +128,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 		<!-- Bullet Navigation -->
 		<ol class="slideshow-mgarcia-bullets">
 			<?php 
-			foreach($feed as $post)  {
-				$postID= $post->id; 	
-			?>
+			foreach($feed as $post) { $postID= $post->id; ?>
 				<li><a href="#mg-slide-<?php echo esc_attr($postID); ?>"></a></li>
 			<?php
 			} ?>
@@ -154,8 +139,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
   		<div class="slideshow-mgarcia-next">&rsaquo;</div>
 
 		</div><!-- close .slideshow-mgarcia-container -->
-		<?php
-			} else { ?>
+		<?php } else { ?>
 			<div class="slideshow-mgarcia-nofeed"><h5><?php echo esc_html__( 'No posts were found', 'slideshow-mgarcia' ); ?></h5</div>
 		<?php } ?>
 	</div>

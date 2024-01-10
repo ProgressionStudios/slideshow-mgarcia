@@ -1,8 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps,  InspectorControls, } from '@wordpress/block-editor';
-import {useState, useEffect} from '@wordpress/element'
+import {useState, useEffect} from '@wordpress/element';
 import { SelectControl, PanelBody, Spinner, Placeholder, RangeControl, ToggleControl, __experimentalInputControl as InputControl} from '@wordpress/components';
-
 import classnames from 'classnames';
 
 export default function Edit( { attributes, setAttributes }) {
@@ -22,7 +21,6 @@ export default function Edit( { attributes, setAttributes }) {
 		customFeedAddress
 	} = attributes;
 
-
 	const inspectorControls = (
 		<InspectorControls key="inspector">
 				<PanelBody title={ __( 'Layout', 'slideshow-mgarcia' ) } initialOpen={ true }>
@@ -35,15 +33,15 @@ export default function Edit( { attributes, setAttributes }) {
 						/>
 						{ customFeed  ? (
 							<>
-							<h2 class="title-compare-mgarcia">{ __( 'Display Feed From:', 'slideshow-mgarcia' ) }</h2>
-							<InputControl
-							value={ customFeedAddress }
-							placeholder="Ex: https://yourwebsite.com"
-							type="url"
-							onChange={ ( value ) =>
-								setAttributes( { customFeedAddress: value } )
-							}
-							/>
+								<h2 class="title-compare-mgarcia">{ __( 'Display Feed From:', 'slideshow-mgarcia' ) }</h2>
+								<InputControl
+									value={ customFeedAddress }
+									placeholder="Ex: https://yourwebsite.com"
+									type="url"
+									onChange={ ( value ) =>
+										setAttributes( { customFeedAddress: value } )
+									}
+								/>
 							</>
 						) : (
 						<SelectControl
@@ -58,6 +56,13 @@ export default function Edit( { attributes, setAttributes }) {
 							onChange={ ( value ) => setAttributes( { jsonFeed: value } ) }
 						/>
 						)}
+						<ToggleControl
+							label={__('Display feed address', 'slideshow-mgarcia')}
+							checked={feedFrontEnd}
+							onChange={(value) =>
+								setAttributes({ feedFrontEnd: value })
+							}
+						/>
 						<ToggleControl
 							label={ __( 'Display featured image', 'slideshow-mgarcia' ) }
 							checked={ featuredImage }
@@ -77,13 +82,6 @@ export default function Edit( { attributes, setAttributes }) {
 							checked={ postExcerpt }
 							onChange={ ( value ) =>
 								setAttributes( { postExcerpt: value } )
-							}
-						/>
-						<ToggleControl
-							label={ __( 'Display feed address', 'slideshow-mgarcia' ) }
-							checked={ feedFrontEnd }
-							onChange={ ( value ) =>
-								setAttributes( { feedFrontEnd: value } )
 							}
 						/>
 				</PanelBody>
@@ -157,8 +155,6 @@ export default function Edit( { attributes, setAttributes }) {
         loadPosts();
 	}, [customFeed, feedCount, jsonFeed, customFeedAddress])
 
-
-
 	const postclasses = classnames( 'slideshow-mgarcia-container', {
         'has-featured': featuredImage,
 		'has-meta': postMeta,
@@ -169,10 +165,8 @@ export default function Edit( { attributes, setAttributes }) {
 	} );
 
 	return (
-
 		<div { ...useBlockProps() }>
 			{ inspectorControls }
-
 			<div className={ postclasses }>
 			<div className="slideshow-mgarcia-feed-title">
 				<h5>{ __( 'Feed address: ', 'slideshow-mgarcia' ) } 
@@ -185,55 +179,43 @@ export default function Edit( { attributes, setAttributes }) {
 				</>
 			) : (
 				<div className="slideshow-mgarcia-edit-container">
-				<ul className="slideshow-mgarcia-list">
-				{posts.map((post) => {
-					const titleTrimmed = post.title.rendered.trim()
-					const cleanExcerpt = post.excerpt.rendered
-
-					return (
-						<li className="slideshow-mgarcia-list-item" id={"mg-slide-" + post.id}>
-							<div className="slideshow-mgarcia-list-container">
-							{ post._embedded['wp:featuredmedia'] &&
-								<div className="wp-block-post-featured-image">
-										<a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url}/>
-										</a></div>
-										//<a href={post.link} target="_blank"><img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}/> Used source image size instead as large image was missing from some feeds
-							}
-
-							<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{  __html: titleTrimmed }}></a></h2>
-							
-							<div className="slideshow-mgarcia-meta-list has-small-font-size">
-								<span className="slideshow-mgarcia-date">{moment(post.date).format('MMMM Do, YYYY')}</span>
-								<span className="slideshow-mgarcia-date-dash"> &ndash; </span>
-								<span className="slideshow-mgarcia-author"> { __( 'By', 'slideshow-mgarcia' ) } <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
-								<span className="slideshow-mgarcia-cat"> { __( 'in', 'slideshow-mgarcia' ) } <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
-							</div>
-
-							<div className="slideshow-mgarcia-meta-excerpt" dangerouslySetInnerHTML={{  __html: cleanExcerpt }}  />
-							</div>
-						</li>
-				 	 )
-					 
-   				})}
-				</ul>
-				
-				<ol className="slideshow-mgarcia-bullets">
-					{posts.map((post) => {
-					return (
-						<li><a href={"#mg-slide-" + post.id}></a></li>
-				 	 );
-   				})}
-				</ol>
-
-				<div className="slideshow-mgarcia-prev">&lsaquo;</div>
-				<div className="slideshow-mgarcia-next">&rsaquo;</div>
-
-				</div>
+					<ul className="slideshow-mgarcia-list">
+						{posts.map((post) => {
+							const titleTrimmed = post.title.rendered.trim()
+							const cleanExcerpt = post.excerpt.rendered
+							return (
+								<li className="slideshow-mgarcia-list-item" id={"mg-slide-" + post.id}>
+									<div className="slideshow-mgarcia-list-container">
+									{ post._embedded['wp:featuredmedia'] &&
+										<div className="wp-block-post-featured-image"><a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url}/></a></div>
+												//<a href={post.link} target="_blank"><img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}/> Used source image size instead as large image was missing from some feeds
+									}
+									<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{  __html: titleTrimmed }}></a></h2>
+									<div className="slideshow-mgarcia-meta-list has-small-font-size">
+										<span className="slideshow-mgarcia-date">{moment(post.date).format('MMMM Do, YYYY')}</span>
+										<span className="slideshow-mgarcia-date-dash"> &ndash; </span>
+										<span className="slideshow-mgarcia-author"> { __( 'By', 'slideshow-mgarcia' ) } <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
+										<span className="slideshow-mgarcia-cat"> { __( 'in', 'slideshow-mgarcia' ) } <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
+									</div>
+									<div className="slideshow-mgarcia-meta-excerpt" dangerouslySetInnerHTML={{  __html: cleanExcerpt }}  />
+									</div>
+								</li>
+							)
+						})}
+					</ul>
+					<ol className="slideshow-mgarcia-bullets">
+						{posts.map((post) => {
+							return (
+								<li><a href={"#mg-slide-" + post.id}></a></li>
+							);
+						})}
+					</ol>
+					<div className="slideshow-mgarcia-prev">&lsaquo;</div>
+					<div className="slideshow-mgarcia-next">&rsaquo;</div>
+				</div>// close .slideshow-mgarcia-edit-container
 			)}
 			</div>
 		</div>
 
 	);
- 
-
 }
