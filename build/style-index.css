@@ -8,13 +8,13 @@
  * Replace them with your own styles or remove the file completely.
  */
 /* Default Global Styles */
-.slideshow-mgarcia-feed-title h5 span {
+h5.slideshow-mgarcia-feed-title span {
   font-size: 80%;
   opacity: 0.6;
   font-style: italic;
 }
 
-.slideshow-mgarcia-feed-title h5 {
+h5.slideshow-mgarcia-feed-title {
   margin-bottom: 10px;
 }
 

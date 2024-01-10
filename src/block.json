@@ -10,7 +10,11 @@
 	"attributes": {
 		"jsonFeed": {
 			"type": "string",
-			"default": "https://gutenbergtimes.com/wp-json/wp/v2/posts/"
+			"default": "https://gutenbergtimes.com"
+		},
+		"missingPosts": {
+			"type": "string",
+			"default": "No posts were found"
 		},
 		"featuredImage": {
 			"type": "boolean",
@@ -51,14 +55,6 @@
 		"autoplayDuration": {
 			"type": "number",
 			"default":3500
-		},
-		"customFeed": {
-			"type": "boolean",
-			"default":true
-		},
-		"customFeedAddress": {
-			"type": "string",
-			"default": "https://wptavern.com"
 		}
 	},
 	"supports": {
@@ -89,7 +85,7 @@
 	},
 	"example": {
 		"attributes": {
-			"jsonFeed": "https://wpdeveloper.com/wp-json/wp/v2/posts/"
+			"jsonFeed": "https://gutenbergtimes.com"
 		}
 	},
 	"textdomain": "slideshow-mgarcia",
