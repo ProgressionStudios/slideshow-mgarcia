@@ -155,7 +155,6 @@ export default function Edit( { attributes, setAttributes }) {
 			}
         }
         loadPosts();
-		
 	}, [customFeed, feedCount, jsonFeed, customFeedAddress])
 
 
@@ -175,9 +174,11 @@ export default function Edit( { attributes, setAttributes }) {
 			{ inspectorControls }
 
 			<div className={ postclasses }>
-			<div className="slideshow-mgarcia-feed-title"><h5>{ __( 'Feed address: ', 'slideshow-mgarcia' ) } 
-			{ customFeed == '1' ? ( <span>{ customFeedAddress }/wp-json/wp/v2/posts/</span> ) : ( <span>{ jsonFeed }</span>  )}
-			</h5></div>
+			<div className="slideshow-mgarcia-feed-title">
+				<h5>{ __( 'Feed address: ', 'slideshow-mgarcia' ) } 
+				{ customFeed == '1' ? ( <span>{ customFeedAddress }/wp-json/wp/v2/posts/</span> ) : ( <span>{ jsonFeed }</span>  )}
+				</h5>
+			</div>
 			{isLoading || feedFailed ? (
 				<>
 					{ feedFailed ? (<div className="slideshow-mgarcia-nofeed"><h5>No posts were found</h5></div> ) : (<Spinner />) }
@@ -187,17 +188,16 @@ export default function Edit( { attributes, setAttributes }) {
 				<ul className="slideshow-mgarcia-list">
 				{posts.map((post) => {
 					const titleTrimmed = post.title.rendered.trim()
-     				const cleanExcerpt = post.excerpt.rendered
+					const cleanExcerpt = post.excerpt.rendered
 
 					return (
 						<li className="slideshow-mgarcia-list-item" id={"mg-slide-" + post.id}>
 							<div className="slideshow-mgarcia-list-container">
-							{ post._embedded['wp:featuredmedia'] ? (
+							{ post._embedded['wp:featuredmedia'] &&
 								<div className="wp-block-post-featured-image">
 										<a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url}/>
 										</a></div>
 										//<a href={post.link} target="_blank"><img src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}/> Used source image size instead as large image was missing from some feeds
-								) : null
 							}
 
 							<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{  __html: titleTrimmed }}></a></h2>
