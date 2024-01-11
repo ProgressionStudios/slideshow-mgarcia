@@ -10,7 +10,7 @@
   "attributes": {
     "jsonFeed": {
       "type": "string",
-      "default": "https://gutenbergtimes.com"
+      "default": "https://wptavern.com"
     },
     "missingPosts": {
       "type": "string",
@@ -84,12 +84,11 @@
   },
   "example": {
     "attributes": {
-      "jsonFeed": "https://gutenbergtimes.com"
+      "jsonFeed": "https://wptavern.com"
     }
   },
   "textdomain": "slideshow-mgarcia",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css",
-  "viewScript": "file:./view.js"
+  "style": "file:./style-index.css"
 }

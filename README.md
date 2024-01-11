@@ -3,14 +3,6 @@ A plugin that provides  users with a custom Gutenberg Block that fetches posts u
 
 [Slideshow block example](https://gutenberg.progressionstudios.com/)
 
-Feed Options:
-* **Choose any website address** that offers WordPress Rest API Support or
-* [WPTavern.com Feed](https://wptavern.com)
-* [WPDeveloper.com Feed](https://wpdeveloper.com/blog/)
-* [CSS-Tricks.com Feed](https://css-tricks.com)
-* [GutenbergHub.com Feed](https://gutenberghub.com/)
-
-
 ## Getting Started ##
 1. Download the zip file and install plugin within your WordPress Dashboard
 2. Find the "**Post Slideshow**" block under the block category "**Michaels Blocks**"
@@ -26,8 +18,6 @@ Feed Options:
 
 ![Slideshow block any feed](https://gutenberg.progressionstudios.com/wp-content/uploads/2024/01/slideshow-feed-selection.jpg)
 
-![Slideshow block news selector](https://gutenberg.progressionstudios.com/wp-content/uploads/2024/01/more-slideshow-options.jpg)
-
 ## Tools used  ##
 * [Gutenberg Create Block Scaffolding](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/)
-* Vanilla JavaScript used for slideshow functionality
+* [Flickity v2 Carousel](https://flickity.metafizzy.co/)

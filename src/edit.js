@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps,  InspectorControls, } from '@wordpress/block-editor';
 import {useState, useEffect} from '@wordpress/element';
-import { SelectControl, PanelBody, Spinner, Placeholder, RangeControl, ToggleControl, __experimentalInputControl as InputControl} from '@wordpress/components';
+import { PanelBody, Spinner, RangeControl, ToggleControl, __experimentalInputControl as InputControl} from '@wordpress/components';
 import classnames from 'classnames';
 
 export default function Edit( { attributes, setAttributes }) {
@@ -22,7 +22,7 @@ export default function Edit( { attributes, setAttributes }) {
 
 	const inspectorControls = (
 		<InspectorControls key="inspector">
-				<PanelBody title={ __( 'Layout', 'slideshow-mgarcia' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'General Options', 'slideshow-mgarcia' ) } initialOpen={ true }>
 						<h2 class="title-compare-mgarcia">{__('Get posts from:', 'slideshow-mgarcia')}</h2>
 						<InputControl
 							value={jsonFeed}
@@ -130,7 +130,7 @@ export default function Edit( { attributes, setAttributes }) {
 					const posts = await response.json();
 					setPosts(posts);
 				}
-			} catch (error) {
+			} catch (err) {
 				setFeedError(true);
 			} finally {
 				setLoading(false);
@@ -152,44 +152,33 @@ export default function Edit( { attributes, setAttributes }) {
 		<div { ...useBlockProps() }>
 			{ inspectorControls }
 			<div className={ postclasses }>
-				<h5 className="slideshow-mgarcia-feed-title">{__('Feed address: ', 'slideshow-mgarcia')}<span>{jsonFeed}/wp-json/wp/v2/posts/</span></h5>
+				<h5 className="feed-title-slideshow-mgarcia">{__('Feed address: ', 'slideshow-mgarcia')}<span>{jsonFeed}/wp-json/wp/v2/posts/</span></h5>
 				{ isLoading ? ( <Spinner /> ) : (
 					<>
-					{feedFailed ? (<h5 className="slideshow-mgarcia-nofeed">{missingPosts}</h5>) : (
-						<div className="slideshow-mgarcia-edit-container">
-							<ul className="slideshow-mgarcia-list">
-								{posts.map((post) => {
-									const titleTrimmed = post.title.rendered.trim()
-									const cleanExcerpt = post.excerpt.rendered
-									return (
-										<li className="slideshow-mgarcia-list-item" id={"mg-slide-" + post.id}>
-											<div className="slideshow-mgarcia-list-container">
-											{ post._embedded['wp:featuredmedia'] &&
-												<div className="wp-block-post-featured-image"><a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url}/></a></div>
+					{feedFailed ? (<h5>{missingPosts}</h5>) : (
+							<div className="carousel-slideshow-mgarcia" data-flickity="">
+							{posts.map((post) => {
+								const titleTrimmed = post.title.rendered.trim()
+								const cleanExcerpt = post.excerpt.rendered
+								return (
+									<div className="carousel-cell-mgarcia-1" id={"mg-slide-" + post.id}>
+										<div className="content-container-slideshow-mgarcia">
+											{post._embedded['wp:featuredmedia'] &&
+												<div className="wp-block-post-featured-image"><a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url} /></a></div>
 											}
-											<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{  __html: titleTrimmed }}></a></h2>
+											<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{ __html: titleTrimmed }}></a></h2>
 											<div className="slideshow-mgarcia-meta-list has-small-font-size">
-												<span className="slideshow-mgarcia-date">{moment(post.date).format('MMMM Do, YYYY')}</span>
-												<span className="slideshow-mgarcia-date-dash"> &ndash; </span>
-												<span className="slideshow-mgarcia-author"> { __( 'By', 'slideshow-mgarcia' ) } <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
-												<span className="slideshow-mgarcia-cat"> { __( 'in', 'slideshow-mgarcia' ) } <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
+												<span className="date-slideshow-mgarcia">{moment(post.date).format('MMMM Do, YYYY')}</span>
+												<span className="dash-slideshow-mgarcia"> &ndash; </span>
+												<span className="author-slideshow-mgarcia"> {__('By', 'slideshow-mgarcia')} <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
+												<span className="cat-slideshow-mgarcia"> {__('in', 'slideshow-mgarcia')} <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
 											</div>
-											<div className="slideshow-mgarcia-meta-excerpt" dangerouslySetInnerHTML={{  __html: cleanExcerpt }}  />
-											</div>
-										</li>
-									)
-								})}
-							</ul>
-							<ol className="slideshow-mgarcia-bullets">
-								{posts.map((post) => {
-									return (
-										<li><a href={"#mg-slide-" + post.id}></a></li>
-									);
-								})}
-							</ol>
-							<div className="slideshow-mgarcia-prev">&lsaquo;</div>
-							<div className="slideshow-mgarcia-next">&rsaquo;</div>
-						</div>// close .slideshow-mgarcia-edit-container
+											<div className="excerpt-slideshow-mgarcia" dangerouslySetInnerHTML={{ __html: cleanExcerpt }} />
+										</div>
+									</div>
+								)
+							})}
+						</div>// close .carousel-slideshow-mgarcia
 					)}
 					</>			
 				)}
