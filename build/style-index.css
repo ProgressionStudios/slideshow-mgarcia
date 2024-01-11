@@ -48,8 +48,21 @@ h5.feed-title-slideshow-mgarcia {
   width: 25%;
 }
 
-.carousel-cell-mgarcia-5 {
-  width: 20%;
+/* Show/Hide Elements */
+.feed-title-slideshow-mgarcia,
+.excerpt-slideshow-mgarcia,
+.meta-list-slideshow-mgarcia,
+.wp-block-post-featured-image {
+  display: none;
+  visibility: hidden;
+}
+
+.has-feed-title .feed-title-slideshow-mgarcia,
+.has-excerpt .excerpt-slideshow-mgarcia,
+.has-meta .meta-list-slideshow-mgarcia,
+.has-featured .wp-block-post-featured-image {
+  display: block;
+  visibility: visible;
 }
 
 /*# sourceMappingURL=style-index.css.map*/

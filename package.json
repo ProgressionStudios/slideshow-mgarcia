@@ -18,6 +18,8 @@
 		"@wordpress/scripts": "^26.18.0"
 	},
 	"dependencies": {
-		"classnames": "^2.3.2"
+		"classnames": "^2.3.2",
+		"flickity": "^2.3.0",
+		"react-flickity-component": "^4.0.7"
 	}
 }

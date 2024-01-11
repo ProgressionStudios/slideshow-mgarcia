@@ -1,0 +1,1 @@
+{"version":3,"file":"index.css","mappings":";;;AAAA;;EAEI;AACJ;;AAEA;;EAEI;AACJ,C","sources":["webpack://slideshow-mgarcia/./src/editor.scss"],"sourcesContent":[".flickity-prev-next-button,\n.flickity-page-dots {\n    opacity:0;\n}\n\n.has-bullets .flickity-page-dots,\n.has-nav-btns .flickity-prev-next-button {\n    opacity:1;\n}\n"],"names":[],"sourceRoot":""}

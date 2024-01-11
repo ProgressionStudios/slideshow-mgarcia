@@ -1,8 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps,  InspectorControls, } from '@wordpress/block-editor';
 import {useState, useEffect} from '@wordpress/element';
-import { PanelBody, Spinner, RangeControl, ToggleControl, __experimentalInputControl as InputControl} from '@wordpress/components';
+import { PanelBody, Spinner, RangeControl, ToggleControl, __experimentalInputControl as InputControl, __experimentalNumberControl as NumberControl } from '@wordpress/components';
 import classnames from 'classnames';
+import './editor.scss';
+import Flickity from 'react-flickity-component';
 
 export default function Edit( { attributes, setAttributes }) {
 
@@ -18,11 +20,13 @@ export default function Edit( { attributes, setAttributes }) {
 		feedFrontEnd,
 		autoplaySlider,
 		autoplayDuration,
+		columnsCount,
+		infiniteLoop
 	} = attributes;
 
 	const inspectorControls = (
 		<InspectorControls key="inspector">
-				<PanelBody title={ __( 'General Options', 'slideshow-mgarcia' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'General', 'slideshow-mgarcia' ) } initialOpen={ true }>
 						<h2 class="title-compare-mgarcia">{__('Get posts from:', 'slideshow-mgarcia')}</h2>
 						<InputControl
 							value={jsonFeed}
@@ -31,6 +35,15 @@ export default function Edit( { attributes, setAttributes }) {
 							onChange={(value) =>
 								setAttributes({ jsonFeed: value })
 							}
+						/>
+						<NumberControl
+							label={__('Post Count', 'slideshow-mgarcia')}
+							value={feedCount}
+							onChange={(value) =>
+								setAttributes({ feedCount: value })
+							}
+							min={1}
+							max={15}
 						/>
 						<ToggleControl
 							label={__('Display feed address', 'slideshow-mgarcia')}
@@ -79,7 +92,7 @@ export default function Edit( { attributes, setAttributes }) {
 						/>
 						{ autoplaySlider == 1 && (
 						<RangeControl
-							label= { __( 'Autoplay Duration (milliseconds)', 'slideshow-mgarcia' ) }
+							label= { __( 'Autoplay duration (milliseconds)', 'slideshow-mgarcia' ) }
 							value={ autoplayDuration }
 							onChange={ ( value ) =>
 								setAttributes( { autoplayDuration: value } )
@@ -89,13 +102,20 @@ export default function Edit( { attributes, setAttributes }) {
 						/>
 						) }
 						<RangeControl
-							label= { __( 'Post Count', 'slideshow-mgarcia' ) }
-							value={ feedCount }
-							onChange={ ( value ) =>
-								setAttributes( { feedCount: value } )
+							label={__('Columns', 'slideshow-mgarcia')}
+							value={columnsCount}
+							onChange={(value) =>
+								setAttributes({ columnsCount: value })
 							}
-							min={ 1 }
-							max={ 10 }
+							min={1}
+							max={4}
+						/>
+						<ToggleControl
+							label={__('Infinite loop', 'slideshow-mgarcia')}
+							checked={infiniteLoop}
+							onChange={(value) =>
+								setAttributes({ infiniteLoop: value })
+							}
 						/>
 						<ToggleControl
 							label={ __( 'Display bullet navigation', 'slideshow-mgarcia' ) }
@@ -137,50 +157,69 @@ export default function Edit( { attributes, setAttributes }) {
 			}
         }
         loadPosts();
-	}, [feedCount, jsonFeed])
+	}, [feedCount, jsonFeed, columnsCount, autoplaySlider, infiniteLoop])
+	
+	const flickityOptions = {
+		adaptiveHeight: true,
+		imagesLoaded: true,
+		groupCells: columnsCount,
+		prevNextButtons: true,
+		pageDots: true,
+		autoPlay: autoplaySlider ? autoplayDuration : false,
+		wrapAround: infiniteLoop ? true : false,
+	}
 
-	const postclasses = classnames( 'slideshow-mgarcia-container', {
-        'has-featured': featuredImage,
+	const postclasses = classnames('slideshow-mgarcia-container', {
+		'has-featured': featuredImage,
 		'has-meta': postMeta,
 		'has-excerpt': postExcerpt,
 		'has-bullet-nav': bulletNav,
 		'has-arrow-nav': arrowNav,
-		'has-feed-front-end': feedFrontEnd
-	} );
+		'has-feed-title': feedFrontEnd,
+		'has-nav-btns': arrowNav,
+		'has-bullets': bulletNav
+	});
 
 	return (
 		<div { ...useBlockProps() }>
 			{ inspectorControls }
-			<div className={ postclasses }>
+			<div className={postclasses}>
 				<h5 className="feed-title-slideshow-mgarcia">{__('Feed address: ', 'slideshow-mgarcia')}<span>{jsonFeed}/wp-json/wp/v2/posts/</span></h5>
-				{ isLoading ? ( <Spinner /> ) : (
+				{isLoading ? (<Spinner />) : (
 					<>
-					{feedFailed ? (<h5>{missingPosts}</h5>) : (
-							<div className="carousel-slideshow-mgarcia" data-flickity="">
-							{posts.map((post) => {
-								const titleTrimmed = post.title.rendered.trim()
-								const cleanExcerpt = post.excerpt.rendered
-								return (
-									<div className="carousel-cell-mgarcia-1" id={"mg-slide-" + post.id}>
-										<div className="content-container-slideshow-mgarcia">
-											{post._embedded['wp:featuredmedia'] &&
-												<div className="wp-block-post-featured-image"><a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url} /></a></div>
-											}
-											<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{ __html: titleTrimmed }}></a></h2>
-											<div className="slideshow-mgarcia-meta-list has-small-font-size">
-												<span className="date-slideshow-mgarcia">{moment(post.date).format('MMMM Do, YYYY')}</span>
-												<span className="dash-slideshow-mgarcia"> &ndash; </span>
-												<span className="author-slideshow-mgarcia"> {__('By', 'slideshow-mgarcia')} <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
-												<span className="cat-slideshow-mgarcia"> {__('in', 'slideshow-mgarcia')} <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
+						{feedFailed ? (<h5>{missingPosts}</h5>) : (
+							<Flickity
+								className={'carousel-slideshow-mgarcia'} 
+								elementType={'div'}
+								options={flickityOptions}
+								disableImagesLoaded
+								reloadOnUpdate={true}
+								static
+							>
+								{posts.map((post) => {
+									const titleTrimmed = post.title.rendered.trim()
+									const cleanExcerpt = post.excerpt.rendered
+									return (
+										<div className={"carousel-cell-mgarcia-" + columnsCount} id={"mg-slide-" + post.id}>
+											<div className="content-container-slideshow-mgarcia">
+												{post._embedded['wp:featuredmedia'] &&
+													<div className="wp-block-post-featured-image"><a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url} /></a></div>
+												}
+												<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{ __html: titleTrimmed }}></a></h2>
+												<div className="meta-list-slideshow-mgarcia has-small-font-size">
+													<span className="date-slideshow-mgarcia">{moment(post.date).format('MMMM Do, YYYY')}</span>
+													<span className="dash-slideshow-mgarcia"> &ndash; </span>
+													<span className="author-slideshow-mgarcia"> {__('By', 'slideshow-mgarcia')} <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
+													<span className="cat-slideshow-mgarcia"> {__('in', 'slideshow-mgarcia')} <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
+												</div>
+												<div className="excerpt-slideshow-mgarcia" dangerouslySetInnerHTML={{ __html: cleanExcerpt }} />
 											</div>
-											<div className="excerpt-slideshow-mgarcia" dangerouslySetInnerHTML={{ __html: cleanExcerpt }} />
 										</div>
-									</div>
-								)
-							})}
-						</div>// close .carousel-slideshow-mgarcia
-					)}
-					</>			
+									)
+								})}
+							</Flickity>
+						)}
+					</>
 				)}
 			</div>
 		</div>

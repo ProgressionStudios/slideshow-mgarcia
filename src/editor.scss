@@ -1,0 +1,9 @@
+.flickity-prev-next-button,
+.flickity-page-dots {
+    opacity:0;
+}
+
+.has-bullets .flickity-page-dots,
+.has-nav-btns .flickity-prev-next-button {
+    opacity:1;
+}

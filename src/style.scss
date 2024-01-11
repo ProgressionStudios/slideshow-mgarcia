@@ -15,16 +15,13 @@ h5.feed-title-slideshow-mgarcia span {
 h5.feed-title-slideshow-mgarcia {
     margin-bottom: 10px;
 }
-
 .content-container-slideshow-mgarcia {
     padding: 10px;
 }
-
 .date-slideshow-mgarcia,
 .dash-slideshow-mgarcia {
     opacity: 0.65;
 }
-
 .excerpt-slideshow-mgarcia {
     font-size: 85%;
 }
@@ -33,7 +30,6 @@ h5.feed-title-slideshow-mgarcia {
 .flickity-viewport {
     transition: height 0.2s;
 }
-
 .carousel-cell-mgarcia-2 {
     width: 50%;
 }
@@ -43,6 +39,20 @@ h5.feed-title-slideshow-mgarcia {
 .carousel-cell-mgarcia-4 {
     width: 25%;
 }
-.carousel-cell-mgarcia-5 {
-    width: 20%;
+
+
+/* Show/Hide Elements */
+.feed-title-slideshow-mgarcia,
+.excerpt-slideshow-mgarcia,
+.meta-list-slideshow-mgarcia,
+.wp-block-post-featured-image {
+    display: none;
+    visibility: hidden;
+}
+.has-feed-title .feed-title-slideshow-mgarcia,
+.has-excerpt .excerpt-slideshow-mgarcia,
+.has-meta .meta-list-slideshow-mgarcia,
+.has-featured .wp-block-post-featured-image {
+    display: block;
+    visibility: visible;
 }

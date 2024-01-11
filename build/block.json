@@ -30,7 +30,7 @@
     },
     "feedCount": {
       "type": "number",
-      "default": 5
+      "default": 12
     },
     "bulletNav": {
       "type": "boolean",
@@ -44,6 +44,10 @@
       "type": "boolean",
       "default": true
     },
+    "columnsCount": {
+      "type": "number",
+      "default": 3
+    },
     "autoplaySlider": {
       "type": "boolean",
       "default": false
@@ -51,6 +55,10 @@
     "autoplayDuration": {
       "type": "number",
       "default": 3500
+    },
+    "infiniteLoop": {
+      "type": "boolean",
+      "default": true
     }
   },
   "supports": {

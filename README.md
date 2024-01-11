@@ -1,5 +1,5 @@
 # Gutenberg Slideshow Block for WordPress Posts
-A plugin that provides  users with a custom Gutenberg Block that fetches posts using the WordPress REST API from any website address.
+A plugin that provides users with a custom Gutenberg Block that fetches posts using the WordPress REST API from any website address.
 
 [Slideshow block example](https://gutenberg.progressionstudios.com/)
 
