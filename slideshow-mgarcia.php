@@ -101,7 +101,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 									?>
 										<div class="wp-block-post-featured-image">
 											<a href="<?php echo esc_url($post->link) ?>">
-											<img src="<?php echo esc_html($featuredImageSource) ?>" alt="<?php echo esc_html($featuredImageAlt) ?>">
+											<img src="<?php echo esc_url($featuredImageSource) ?>" alt="<?php echo esc_html($featuredImageAlt) ?>">
 											</a>
 										</div><!-- close .wp-block-post-featured-image -->
 									<?php endif; ?>
