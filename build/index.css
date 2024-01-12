@@ -11,4 +11,10 @@
   opacity: 1;
 }
 
+/* Forced alignment for preview columns only */
+.carousel-cell-mgarcia-2 {
+  display: inline-block;
+  vertical-align: top;
+}
+
 /*# sourceMappingURL=index.css.map*/

@@ -62,11 +62,6 @@
     }
   },
   "supports": {
-    "html": false,
-    "align": [
-      "wide",
-      "full"
-    ],
     "color": {
       "background": true,
       "text": true,
@@ -90,9 +85,19 @@
       }
     }
   },
+  "selectors": {
+    "color": "h5.feed-title-slideshow-mgarcia",
+    "typography": ".wp-block-create-block-slideshow-mgarcia > h2"
+  },
   "example": {
     "attributes": {
-      "jsonFeed": "https://wptavern.com"
+      "jsonFeed": "https://wptavern.com",
+      "feedCount": 2,
+      "columnsCount": 2,
+      "feedFrontEnd": false,
+      "autoplaySlider": true,
+      "infiniteLoop": false,
+      "featuredImage": true
     }
   },
   "textdomain": "slideshow-mgarcia",

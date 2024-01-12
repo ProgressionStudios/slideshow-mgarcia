@@ -1,19 +1,14 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
-
 /* Default Global Styles */
 h5.feed-title-slideshow-mgarcia span {
     font-size: 80%;
     opacity: 0.6;
     font-style: italic;
 }
-
 h5.feed-title-slideshow-mgarcia {
     margin-bottom: 10px;
+}
+.content-container-slideshow-mgarcia h2 {
+    margin:30px 0px 10px 0px;
 }
 .content-container-slideshow-mgarcia {
     padding: 10px;
@@ -22,10 +17,19 @@ h5.feed-title-slideshow-mgarcia {
 .dash-slideshow-mgarcia {
     opacity: 0.65;
 }
-.excerpt-slideshow-mgarcia {
-    font-size: 85%;
+.content-container-slideshow-mgarcia .wp-block-post-featured-image img {
+    object-fit: cover;
+    height: 340px;
 }
-
+.carousel-cell-mgarcia-2 .wp-block-post-featured-image img {
+    height: 280px;
+}
+.carousel-cell-mgarcia-3 .wp-block-post-featured-image img {
+    height: 240px;
+}
+.carousel-cell-mgarcia-4 .wp-block-post-featured-image img {
+    height:150px;
+}
 /* Flickity Custom Styles */
 .flickity-viewport {
     transition: height 0.2s;
@@ -39,8 +43,41 @@ h5.feed-title-slideshow-mgarcia {
 .carousel-cell-mgarcia-4 {
     width: 25%;
 }
-
-
+/* Arrow Styles */
+.slideshow-mgarcia-container .flickity-button {
+    background: hsla(0,0,0, 0.07);
+    color: #888;
+    transition: color 300ms;
+}
+.slideshow-mgarcia-container .flickity-prev-next-button {
+    width: 24px;
+    height: 24px;
+}
+.slideshow-mgarcia-container .flickity-prev-next-button.previous {
+    left:-26px;
+}
+.slideshow-mgarcia-container .flickity-prev-next-button.next {
+    right: -26px;
+}
+.slideshow-mgarcia-container .flickity-button:focus {
+    box-shadow:none;
+}
+.slideshow-mgarcia-container .flickity-button:hover {
+    background: hsla(0, 0, 0, 0.08);
+    color:#000;
+}
+.slideshow-mgarcia-container .flickity-button:active {
+    opacity: 0.6;
+}
+.slideshow-mgarcia-container .flickity-button:disabled {
+    opacity: 0.3;
+}
+/* Bullet Styles */
+.slideshow-mgarcia-container .flickity-page-dots .dot {
+    margin: 0 4px;
+    width:8px;
+    height:8px;
+}
 /* Show/Hide Elements */
 .feed-title-slideshow-mgarcia,
 .excerpt-slideshow-mgarcia,

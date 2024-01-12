@@ -106,7 +106,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 										</div><!-- close .wp-block-post-featured-image -->
 									<?php endif; ?>
 
-									<h2 class="wp-block-post-title has-large-font-size">
+									<h2 class="wp-block-post-title">
 										<a href="<?php echo esc_url($post->link) ?>"><?php echo esc_html($post->title->rendered); ?></a>
 									</h2>
 
@@ -131,7 +131,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 										</span>
 									</div>
 									
-									<div class="excerpt-slideshow-mgarcia"><?php echo wp_kses($post->excerpt->rendered, true); ?></div>
+									<div class="excerpt-slideshow-mgarcia has-small-font-size"><?php echo wp_kses($post->excerpt->rendered, true); ?></div>
 
 								</div><!-- close .content-container-slideshow-mgarcia -->
 							</div><!-- close .carousel-cell-mgarcia- -->

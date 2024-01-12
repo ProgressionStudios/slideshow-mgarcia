@@ -2,8 +2,13 @@
 .flickity-page-dots {
     opacity:0;
 }
-
 .has-bullets .flickity-page-dots,
 .has-nav-btns .flickity-prev-next-button {
     opacity:1;
+}
+
+/* Forced alignment for preview columns only */
+.carousel-cell-mgarcia-2 {
+    display:inline-block;
+    vertical-align:top;
 }
