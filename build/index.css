@@ -21,4 +21,11 @@
   height: 250px;
 }
 
+/* Mobile Single Column */
+@media only screen and (max-width: 767px) {
+  .carousel-cell-mgarcia-2 {
+    width: 50%;
+  }
+}
+
 /*# sourceMappingURL=index.css.map*/

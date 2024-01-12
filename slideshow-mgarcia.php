@@ -88,7 +88,7 @@ function slideshow_mgarcia_render_post_list ($attributes) {
 						"prevNextButtons": <?php if ( $attributes['arrowNav'] == 0 )  { echo "false"; } else { echo "true"; } ?>, 
 						"pageDots": <?php if ( $attributes['bulletNav'] == 0 )  { echo "false"; } else { echo "true"; } ?>, 
 						"wrapAround": <?php if ( $attributes['infiniteLoop'] == 0 )  { echo "false"; } else { echo "true"; } ?>, 
-						"groupCells": <?php echo esc_attr($attributes['columnsCount']); ?> }
+						"groupCells":true }
 					'>
 						<?php foreach($feed as $post) { ?>
 							

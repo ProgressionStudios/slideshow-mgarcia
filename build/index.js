@@ -172,11 +172,11 @@ function Edit({
       }
     }
     loadPosts();
-  }, [feedCount, jsonFeed, columnsCount, autoplaySlider, infiniteLoop]);
+  }, [feedCount, jsonFeed, autoplaySlider, infiniteLoop]);
   const flickityOptions = {
     adaptiveHeight: true,
     imagesLoaded: true,
-    groupCells: columnsCount,
+    groupCells: true,
     prevNextButtons: true,
     pageDots: true,
     autoPlay: autoplaySlider ? autoplayDuration : false,
@@ -210,7 +210,7 @@ function Edit({
     const cleanExcerpt = post.excerpt.rendered;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "carousel-cell-mgarcia-" + columnsCount,
-      id: "mg-slide-" + post.id
+      key: "mg-slide-" + post.id
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "content-container-slideshow-mgarcia"
     }, post._embedded['wp:featuredmedia'] && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {

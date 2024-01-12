@@ -157,12 +157,12 @@ export default function Edit( { attributes, setAttributes }) {
 			}
         }
         loadPosts();
-	}, [feedCount, jsonFeed, columnsCount, autoplaySlider, infiniteLoop])
+	}, [feedCount, jsonFeed, autoplaySlider, infiniteLoop])
 	
 	const flickityOptions = {
 		adaptiveHeight: true,
 		imagesLoaded: true,
-		groupCells: columnsCount,
+		groupCells: true,
 		prevNextButtons: true,
 		pageDots: true,
 		autoPlay: autoplaySlider ? autoplayDuration : false,
@@ -200,7 +200,7 @@ export default function Edit( { attributes, setAttributes }) {
 									const titleTrimmed = post.title.rendered.trim()
 									const cleanExcerpt = post.excerpt.rendered
 									return (
-										<div className={"carousel-cell-mgarcia-" + columnsCount} id={"mg-slide-" + post.id}>
+										<div className={"carousel-cell-mgarcia-" + columnsCount} key={"mg-slide-" + post.id}>
 											<div className="content-container-slideshow-mgarcia">
 												{post._embedded['wp:featuredmedia'] &&
 													<div className="wp-block-post-featured-image"><a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url} /></a></div>
