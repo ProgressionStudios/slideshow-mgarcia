@@ -10,6 +10,7 @@ h5.feed-title-slideshow-mgarcia span {
 
 h5.feed-title-slideshow-mgarcia {
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .content-container-slideshow-mgarcia h2 {
@@ -32,20 +33,24 @@ h5.feed-title-slideshow-mgarcia {
 }
 
 .carousel-cell-mgarcia-2 .wp-block-post-featured-image img {
-  height: 280px;
+  height: 300px;
 }
 
 .carousel-cell-mgarcia-3 .wp-block-post-featured-image img {
-  height: 240px;
+  height: 220px;
 }
 
 .carousel-cell-mgarcia-4 .wp-block-post-featured-image img {
-  height: 150px;
+  height: 160px;
 }
 
 /* Flickity Custom Styles */
 .flickity-viewport {
   transition: height 0.2s;
+}
+
+.carousel-cell-mgarcia-1 {
+  width: 100%;
 }
 
 .carousel-cell-mgarcia-2 {

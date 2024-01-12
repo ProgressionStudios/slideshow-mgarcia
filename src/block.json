@@ -85,10 +85,6 @@
 			}
 		}
 	},
-	"selectors": {
-		"color": "h5.feed-title-slideshow-mgarcia",
-		"typography": ".wp-block-create-block-slideshow-mgarcia > h2"
-	},
 	"example": {
 		"attributes": {
 			"jsonFeed": "https://wptavern.com",

@@ -11,9 +11,9 @@ A plugin that provides users with a custom Gutenberg Block that fetches posts us
 
 
 ## Block Options ##
-* Choose any website address or from a list of popular news websites
+* Choose any website address that offers WordPress API support
+* Carousel options for Columns, AutoPlay, and Loop
 * Toggle post elements (Meta, Excerpt, Featured Image)
-* Autoplay support on front end display
 * Style options include text color and typography
 
 ![Slideshow block any feed](https://gutenberg.progressionstudios.com/wp-content/uploads/2024/01/slideshow-feed-selection.jpg)

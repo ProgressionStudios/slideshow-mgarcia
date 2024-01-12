@@ -220,7 +220,7 @@ function Edit({
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
       src: post._embedded['wp:featuredmedia'][0].source_url
     }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
-      className: "wp-block-post-title"
+      className: "wp-block-post-title has-large-font-size"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
       href: "#!",
       dangerouslySetInnerHTML: {
@@ -243,7 +243,7 @@ function Edit({
       href: post._embedded['wp:term'][0][0].link,
       target: "_blank"
     }, post._embedded['wp:term'][0][0].name))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "excerpt-slideshow-mgarcia has-small-font-size",
+      className: "excerpt-slideshow-mgarcia",
       dangerouslySetInnerHTML: {
         __html: cleanExcerpt
       }
@@ -2195,7 +2195,7 @@ module.exports = window["wp"]["i18n"];
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow that fetches blog Posts via the REST API","attributes":{"jsonFeed":{"type":"string","default":"https://wptavern.com"},"missingPosts":{"type":"string","default":"No posts were found"},"featuredImage":{"type":"boolean","default":true},"postMeta":{"type":"boolean","default":true},"postExcerpt":{"type":"boolean","default":true},"feedCount":{"type":"number","default":12},"bulletNav":{"type":"boolean","default":true},"arrowNav":{"type":"boolean","default":true},"feedFrontEnd":{"type":"boolean","default":true},"columnsCount":{"type":"number","default":3},"autoplaySlider":{"type":"boolean","default":false},"autoplayDuration":{"type":"number","default":3500},"infiniteLoop":{"type":"boolean","default":true}},"supports":{"color":{"background":true,"text":true,"link":true},"spacing":{"margin":true,"padding":true},"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalTextTransform":true,"__experimentalTextDecoration":true,"__experimentalLetterSpacing":true,"__experimentalDefaultControls":{"fontSize":true}}},"selectors":{"color":"h5.feed-title-slideshow-mgarcia","typography":".wp-block-create-block-slideshow-mgarcia > h2"},"example":{"attributes":{"jsonFeed":"https://wptavern.com","feedCount":2,"columnsCount":2,"feedFrontEnd":false,"autoplaySlider":true,"infiniteLoop":false,"featuredImage":true}},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/slideshow-mgarcia","version":"0.1.0","title":"Post Slideshow","category":"michaels-blocks","icon":"slides","description":"Slideshow that fetches blog Posts via the REST API","attributes":{"jsonFeed":{"type":"string","default":"https://wptavern.com"},"missingPosts":{"type":"string","default":"No posts were found"},"featuredImage":{"type":"boolean","default":true},"postMeta":{"type":"boolean","default":true},"postExcerpt":{"type":"boolean","default":true},"feedCount":{"type":"number","default":12},"bulletNav":{"type":"boolean","default":true},"arrowNav":{"type":"boolean","default":true},"feedFrontEnd":{"type":"boolean","default":true},"columnsCount":{"type":"number","default":3},"autoplaySlider":{"type":"boolean","default":false},"autoplayDuration":{"type":"number","default":3500},"infiniteLoop":{"type":"boolean","default":true}},"supports":{"color":{"background":true,"text":true,"link":true},"spacing":{"margin":true,"padding":true},"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalTextTransform":true,"__experimentalTextDecoration":true,"__experimentalLetterSpacing":true,"__experimentalDefaultControls":{"fontSize":true}}},"example":{"attributes":{"jsonFeed":"https://wptavern.com","feedCount":2,"columnsCount":2,"feedFrontEnd":false,"autoplaySlider":true,"infiniteLoop":false,"featuredImage":true}},"textdomain":"slideshow-mgarcia","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
 
 /***/ })
 
