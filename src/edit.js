@@ -26,112 +26,112 @@ export default function Edit( { attributes, setAttributes }) {
 
 	const inspectorControls = (
 		<InspectorControls key="inspector">
-				<PanelBody title={ __( 'General', 'slideshow-mgarcia' ) } initialOpen={ true }>
-						<h2 class="title-compare-mgarcia">{__('Get posts from:', 'slideshow-mgarcia')}</h2>
-						<InputControl
-							value={jsonFeed}
-							placeholder="Ex: https://yourwebsite.com"
-							type="url"
-							onChange={(value) =>
-								setAttributes({ jsonFeed: value })
-							}
-						/>
-						<NumberControl
-							label={__('Post Count', 'slideshow-mgarcia')}
-							value={feedCount}
-							onChange={(value) =>
-								setAttributes({ feedCount: value })
-							}
-							min={1}
-							max={15}
-						/>
-						<ToggleControl
-							label={__('Display feed address', 'slideshow-mgarcia')}
-							checked={feedFrontEnd}
-							onChange={(value) =>
-								setAttributes({ feedFrontEnd: value })
-							}
-						/>
-						<ToggleControl
-							label={ __( 'Display featured image', 'slideshow-mgarcia' ) }
-							checked={ featuredImage }
-							onChange={ ( value ) =>
-								setAttributes( { featuredImage: value } )
-							}
-						/>
-						<ToggleControl
-							label={ __( 'Display post meta', 'slideshow-mgarcia' ) }
-							checked={ postMeta }
-							onChange={ ( value ) =>
-								setAttributes( { postMeta: value } )
-							}
-						/>
-						<ToggleControl
-							label={ __( 'Display post excerpt', 'slideshow-mgarcia' ) }
-							checked={ postExcerpt }
-							onChange={ ( value ) =>
-								setAttributes( { postExcerpt: value } )
-							}
-						/>
-						<h2 class="title-compare-mgarcia">{__('No posts message:', 'slideshow-mgarcia')}</h2>
-						<InputControl
-							value={missingPosts}
-							type="text"
-							onChange={(value) =>
-								setAttributes({ missingPosts: value })
-							}
-						/>
-				</PanelBody>
-				<PanelBody title={ __( 'Slideshow Options', 'slideshow-mgarcia' ) } initialOpen={ true }>
-						<ToggleControl
-							label={ __( 'Autoplay', 'slideshow-mgarcia' ) }
-							checked={ autoplaySlider }
-							onChange={ ( value ) =>
-								setAttributes( { autoplaySlider: value } )
-							}
-						/>
-						{ autoplaySlider == 1 && (
-						<RangeControl
-							label= { __( 'Autoplay duration (milliseconds)', 'slideshow-mgarcia' ) }
-							value={ autoplayDuration }
-							onChange={ ( value ) =>
-								setAttributes( { autoplayDuration: value } )
-							}
-							min={ 1000 }
-							max={ 10000 }
-						/>
-						) }
-						<RangeControl
-							label={__('Columns', 'slideshow-mgarcia')}
-							value={columnsCount}
-							onChange={(value) =>
-								setAttributes({ columnsCount: value })
-							}
-							min={1}
-							max={4}
-						/>
-						<ToggleControl
-							label={__('Infinite loop', 'slideshow-mgarcia')}
-							checked={infiniteLoop}
-							onChange={(value) =>
-								setAttributes({ infiniteLoop: value })
-							}
-						/>
-						<ToggleControl
-							label={ __( 'Display bullet navigation', 'slideshow-mgarcia' ) }
-							checked={ bulletNav }
-							onChange={ ( value ) =>
-								setAttributes( { bulletNav: value } )
-							}
-						/>
-						<ToggleControl
-							label={ __( 'Display arrow navigation', 'slideshow-mgarcia' ) }
-							checked={ arrowNav }
-							onChange={ ( value ) =>
-								setAttributes( { arrowNav: value } )
-							}
-						/>
-				</PanelBody>
+			<PanelBody title={ __( 'General', 'slideshow-mgarcia' ) } initialOpen={ true }>
+				<h2 class="title-compare-mgarcia">{__('Get posts from:', 'slideshow-mgarcia')}</h2>
+				<InputControl
+					value={jsonFeed}
+					placeholder="Ex: https://yourwebsite.com"
+					type="url"
+					onChange={(value) =>
+						setAttributes({ jsonFeed: value })
+					}
+				/>
+				<NumberControl
+					label={__('Post Count', 'slideshow-mgarcia')}
+					value={feedCount}
+					onChange={(value) =>
+						setAttributes({ feedCount: value })
+					}
+					min={1}
+					max={15}
+				/>
+				<ToggleControl
+					label={__('Display feed address', 'slideshow-mgarcia')}
+					checked={feedFrontEnd}
+					onChange={(value) =>
+						setAttributes({ feedFrontEnd: value })
+					}
+				/>
+				<ToggleControl
+					label={ __( 'Display featured image', 'slideshow-mgarcia' ) }
+					checked={ featuredImage }
+					onChange={ ( value ) =>
+						setAttributes( { featuredImage: value } )
+					}
+				/>
+				<ToggleControl
+					label={ __( 'Display post meta', 'slideshow-mgarcia' ) }
+					checked={ postMeta }
+					onChange={ ( value ) =>
+						setAttributes( { postMeta: value } )
+					}
+				/>
+				<ToggleControl
+					label={ __( 'Display post excerpt', 'slideshow-mgarcia' ) }
+					checked={ postExcerpt }
+					onChange={ ( value ) =>
+						setAttributes( { postExcerpt: value } )
+					}
+				/>
+				<h2 class="title-compare-mgarcia">{__('No posts message:', 'slideshow-mgarcia')}</h2>
+				<InputControl
+					value={missingPosts}
+					type="text"
+					onChange={(value) =>
+						setAttributes({ missingPosts: value })
+					}
+				/>
+			</PanelBody>
+			<PanelBody title={ __( 'Slideshow Options', 'slideshow-mgarcia' ) } initialOpen={ true }>
+				<ToggleControl
+					label={ __( 'Autoplay', 'slideshow-mgarcia' ) }
+					checked={ autoplaySlider }
+					onChange={ ( value ) =>
+						setAttributes( { autoplaySlider: value } )
+					}
+				/>
+				{ autoplaySlider == 1 && (
+				<RangeControl
+					label= { __( 'Autoplay duration (milliseconds)', 'slideshow-mgarcia' ) }
+					value={ autoplayDuration }
+					onChange={ ( value ) =>
+						setAttributes( { autoplayDuration: value } )
+					}
+					min={ 1000 }
+					max={ 10000 }
+				/>
+				) }
+				<RangeControl
+					label={__('Columns', 'slideshow-mgarcia')}
+					value={columnsCount}
+					onChange={(value) =>
+						setAttributes({ columnsCount: value })
+					}
+					min={1}
+					max={4}
+				/>
+				<ToggleControl
+					label={__('Infinite loop', 'slideshow-mgarcia')}
+					checked={infiniteLoop}
+					onChange={(value) =>
+						setAttributes({ infiniteLoop: value })
+					}
+				/>
+				<ToggleControl
+					label={ __( 'Display bullet navigation', 'slideshow-mgarcia' ) }
+					checked={ bulletNav }
+					onChange={ ( value ) =>
+						setAttributes( { bulletNav: value } )
+					}
+				/>
+				<ToggleControl
+					label={ __( 'Display arrow navigation', 'slideshow-mgarcia' ) }
+					checked={ arrowNav }
+					onChange={ ( value ) =>
+						setAttributes( { arrowNav: value } )
+					}
+				/>
+			</PanelBody>
         </InspectorControls>
 	);
 
