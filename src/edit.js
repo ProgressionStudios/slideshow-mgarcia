@@ -132,7 +132,7 @@ export default function Edit( { attributes, setAttributes }) {
 					}
 				/>
 			</PanelBody>
-        </InspectorControls>
+		</InspectorControls>
 	);
 
 	const [posts, setPosts] = useState([])
@@ -140,7 +140,7 @@ export default function Edit( { attributes, setAttributes }) {
 	const [feedFailed, setFeedError] = useState(false)
 
 	useEffect(() => {
-        async function loadPosts() {
+		async function loadPosts() {
 			setLoading(true);//Causes loading spinner each time jsonfeed is changed
 			setFeedError(false);//Error check
 			try {
@@ -155,8 +155,8 @@ export default function Edit( { attributes, setAttributes }) {
 			} finally {
 				setLoading(false);
 			}
-        }
-        loadPosts();
+		}
+		loadPosts();
 	}, [feedCount, jsonFeed, autoplaySlider, infiniteLoop])
 	
 	const flickityOptions = {
@@ -187,38 +187,38 @@ export default function Edit( { attributes, setAttributes }) {
 				<h5 className="feed-title-slideshow-mgarcia">{__('Feed address: ', 'slideshow-mgarcia')}<span>{jsonFeed}/wp-json/wp/v2/posts/</span></h5>
 				{isLoading ? (<Spinner />) : (
 					<>
-						{feedFailed ? (<h5>{missingPosts}</h5>) : (
-							<Flickity
-								className={'carousel-slideshow-mgarcia'} 
-								elementType={'div'}
-								options={flickityOptions}
-								disableImagesLoaded
-								reloadOnUpdate={true}
-								static
-							>
-								{posts.map((post) => {
-									const titleTrimmed = post.title.rendered.trim()
-									const cleanExcerpt = post.excerpt.rendered
-									return (
-										<div className={"carousel-cell-mgarcia-" + columnsCount} key={"mg-slide-" + post.id}>
-											<div className="content-container-slideshow-mgarcia">
-												{post._embedded['wp:featuredmedia'] &&
-													<div className="wp-block-post-featured-image"><a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url} /></a></div>
-												}
-												<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{ __html: titleTrimmed }}></a></h2>
-												<div className="meta-list-slideshow-mgarcia has-small-font-size">
-													<span className="date-slideshow-mgarcia">{moment(post.date).format('MMMM Do, YYYY')}</span>
-													<span className="dash-slideshow-mgarcia"> &ndash; </span>
-													<span className="author-slideshow-mgarcia"> {__('By', 'slideshow-mgarcia')} <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
-													<span className="cat-slideshow-mgarcia"> {__('in', 'slideshow-mgarcia')} <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
-												</div>
-												<div className="excerpt-slideshow-mgarcia" dangerouslySetInnerHTML={{ __html: cleanExcerpt }} />
-											</div>
+					{feedFailed ? (<h5>{missingPosts}</h5>) : (
+						<Flickity
+							className={'carousel-slideshow-mgarcia'} 
+							elementType={'div'}
+							options={flickityOptions}
+							disableImagesLoaded
+							reloadOnUpdate={true}
+							static
+						>
+						{posts.map((post) => {
+							const titleTrimmed = post.title.rendered.trim()
+							const cleanExcerpt = post.excerpt.rendered
+							return (
+								<div className={"carousel-cell-mgarcia-" + columnsCount} key={"mg-slide-" + post.id}>
+									<div className="content-container-slideshow-mgarcia">
+										{post._embedded['wp:featuredmedia'] &&
+											<div className="wp-block-post-featured-image"><a href="#!"><img src={post._embedded['wp:featuredmedia'][0].source_url} /></a></div>
+										}
+										<h2 className="wp-block-post-title has-large-font-size"><a href="#!" dangerouslySetInnerHTML={{ __html: titleTrimmed }}></a></h2>
+										<div className="meta-list-slideshow-mgarcia has-small-font-size">
+											<span className="date-slideshow-mgarcia">{moment(post.date).format('MMMM Do, YYYY')}</span>
+											<span className="dash-slideshow-mgarcia"> &ndash; </span>
+											<span className="author-slideshow-mgarcia"> {__('By', 'slideshow-mgarcia')} <a href={post._embedded.author[0].link} target="_blank">{post._embedded.author[0].name}</a></span>
+											<span className="cat-slideshow-mgarcia"> {__('in', 'slideshow-mgarcia')} <a href={post._embedded['wp:term'][0][0].link} target="_blank">{post._embedded['wp:term'][0][0].name}</a></span>
 										</div>
-									)
-								})}
-							</Flickity>
-						)}
+										<div className="excerpt-slideshow-mgarcia" dangerouslySetInnerHTML={{ __html: cleanExcerpt }} />
+									</div>
+								</div>
+							)
+						})}
+						</Flickity>
+					)}
 					</>
 				)}
 			</div>
