@@ -192,6 +192,49 @@ function Edit({
     'has-nav-btns': arrowNav,
     'has-bullets': bulletNav
   });
+  let listPosts = posts.map(post => {
+    const titleTrimmed = post.title.rendered.trim();
+    const cleanExcerpt = post.excerpt.rendered;
+    const postDate = moment(post.date).format('MMMM Do, YYYY');
+    const postAuthor = post._embedded.author[0].name;
+    const postCat = post._embedded['wp:term'][0][0].name;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "carousel-cell-mgarcia-" + columnsCount,
+      key: "mg-slide-" + post.id
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "content-container-slideshow-mgarcia"
+    }, post._embedded['wp:featuredmedia'] && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "wp-block-post-featured-image"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      src: post._embedded['wp:featuredmedia'][0].source_url
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+      className: "wp-block-post-title has-large-font-size"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: "#!",
+      dangerouslySetInnerHTML: {
+        __html: titleTrimmed
+      }
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "meta-list-slideshow-mgarcia has-small-font-size"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "date-slideshow-mgarcia"
+    }, postDate), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "dash-slideshow-mgarcia"
+    }, " \u2013 "), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "author-slideshow-mgarcia"
+    }, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('By', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: "#!"
+    }, postAuthor)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "cat-slideshow-mgarcia"
+    }, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('in', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: "#!"
+    }, postCat))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "excerpt-slideshow-mgarcia",
+      dangerouslySetInnerHTML: {
+        __html: cleanExcerpt
+      }
+    })));
+  });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, inspectorControls, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -205,50 +248,7 @@ function Edit({
     disableImagesLoaded: true,
     reloadOnUpdate: true,
     static: true
-  }, posts.map(post => {
-    const titleTrimmed = post.title.rendered.trim();
-    const cleanExcerpt = post.excerpt.rendered;
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "carousel-cell-mgarcia-" + columnsCount,
-      key: "mg-slide-" + post.id
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "content-container-slideshow-mgarcia"
-    }, post._embedded['wp:featuredmedia'] && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "wp-block-post-featured-image"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-      href: "#!"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-      src: post._embedded['wp:featuredmedia'][0].source_url
-    }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
-      className: "wp-block-post-title has-large-font-size"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-      href: "#!",
-      dangerouslySetInnerHTML: {
-        __html: titleTrimmed
-      }
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "meta-list-slideshow-mgarcia has-small-font-size"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "date-slideshow-mgarcia"
-    }, moment(post.date).format('MMMM Do, YYYY')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "dash-slideshow-mgarcia"
-    }, " \u2013 "), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "author-slideshow-mgarcia"
-    }, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('By', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-      href: post._embedded.author[0].link,
-      target: "_blank"
-    }, post._embedded.author[0].name)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "cat-slideshow-mgarcia"
-    }, " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('in', 'slideshow-mgarcia'), " ", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-      href: post._embedded['wp:term'][0][0].link,
-      target: "_blank"
-    }, post._embedded['wp:term'][0][0].name))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "excerpt-slideshow-mgarcia",
-      dangerouslySetInnerHTML: {
-        __html: cleanExcerpt
-      }
-    })));
-  })))));
+  }, listPosts))));
 }
 
 /***/ }),
