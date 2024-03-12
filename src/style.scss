@@ -1,18 +1,18 @@
 /* Default Global Styles */
-h5.feed-title-slideshow-mgarcia span {
-    font-size: 80%;
-    opacity: 0.6;
-    font-style: italic;
-}
 h5.feed-title-slideshow-mgarcia {
     margin-bottom: 10px;
     text-align:center;
-}
-.content-container-slideshow-mgarcia h2 {
-    margin:30px 0px 10px 0px;
+    span {
+        font-size: 80%;
+        opacity: 0.6;
+        font-style: italic;
+    }
 }
 .content-container-slideshow-mgarcia {
     padding: 10px;
+    h2 {
+        margin: 30px 0px 10px 0px;
+    }
 }
 .date-slideshow-mgarcia,
 .dash-slideshow-mgarcia {
@@ -32,40 +32,50 @@ h5.feed-title-slideshow-mgarcia {
     height:160px;
 }
 /* Arrow Styles */
-.slideshow-mgarcia-container .flickity-button {
-    background: hsla(0,0,0, 0.07);
-    color: #888;
-    transition: color 300ms;
+.slideshow-mgarcia-container {
+    .flickity-button {
+        background: hsla(0,0,0, 0.07);
+        color: #888;
+        transition: color 300ms;
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:hover {
+            background: hsla(0, 0, 0, 0.08);
+            color: #000;
+        }
+
+        &:active {
+            opacity:0.6;
+        }
+
+        &:disabled {
+            opacity:0.3
+        }
+    }
+
+    .flickity-prev-next-button {
+        width: 24px;
+        height: 24px;
+
+        &.previous {
+            left: -26px;
+        }
+        
+       &.next {
+            right: -26px;
+        }
+    }
+    /* Bullet Styles */
+    .flickity-page-dots .dot {
+        margin: 0 4px;
+        width: 8px;
+        height: 8px;
+    }
 }
-.slideshow-mgarcia-container .flickity-prev-next-button {
-    width: 24px;
-    height: 24px;
-}
-.slideshow-mgarcia-container .flickity-prev-next-button.previous {
-    left:-26px;
-}
-.slideshow-mgarcia-container .flickity-prev-next-button.next {
-    right: -26px;
-}
-.slideshow-mgarcia-container .flickity-button:focus {
-    box-shadow:none;
-}
-.slideshow-mgarcia-container .flickity-button:hover {
-    background: hsla(0, 0, 0, 0.08);
-    color:#000;
-}
-.slideshow-mgarcia-container .flickity-button:active {
-    opacity: 0.6;
-}
-.slideshow-mgarcia-container .flickity-button:disabled {
-    opacity: 0.3;
-}
-/* Bullet Styles */
-.slideshow-mgarcia-container .flickity-page-dots .dot {
-    margin: 0 4px;
-    width:8px;
-    height:8px;
-}
+
 /* Show/Hide Elements */
 .feed-title-slideshow-mgarcia,
 .excerpt-slideshow-mgarcia,
